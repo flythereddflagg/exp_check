@@ -10,25 +10,60 @@ import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LsMan 
 {
     private static String filename;
+    private static List<String[]> data = new ArrayList<String[]>();
     
     public LsMan(String filenamep) 
     {
         filename = filenamep;
     }
     
-    public String get_food_list()
+    public List<String[]>  get_data()
     {
-        return "Did it.";
+        String filestring = read_file();
+        if (filestring == "< EMPTY >") {
+            String[] arr = {filestring};
+            data.add(arr);
+            return data;
+        }
+        parse_csv(filestring);
+        return data;
+     
     }
+    
+    public void parse_csv(String filestring)
+    {
+        // file format
+        // YY, MM, DD, Food_name
+        //System.out.println(filestring);
+        data = new ArrayList<String[]>();
+        String[] lines = filestring.split("\n");
+        String[] splitline;
+        for (String line:lines) {
+            splitline = line.split(",");
+            if (splitline.length != 4) continue;
+            data.add(splitline);
+        }
+    }
+    
     public String read_file(){
         BufferedReader br = null;
 	    FileReader fr = null;
-        String f_string = "";
+        String f_string = "\n";
         
 	    try {
+            File file = new File(filename);
+            
+            if (!file.exists()) {
+                file.createNewFile();
+                return "< EMPTY >";
+            }
+	    
 		    fr = new FileReader(filename);
 		    br = new BufferedReader(fr);
 
@@ -36,6 +71,7 @@ public class LsMan
 
 		    while ((sCurrentLine = br.readLine()) != null) {
 			    f_string += sCurrentLine;
+			    f_string += "\n";
 		    }
 	    } 
 	    catch (IOException e) {
