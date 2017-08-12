@@ -19,48 +19,38 @@ public class LsMan
         filename = filenamep;
     }
     
-    public void do_something()
+    public String get_food_list()
     {
-        System.out.println("Did it.");
+        return "Did it.";
     }
-    public void read_file(){
+    public String read_file(){
         BufferedReader br = null;
 	    FileReader fr = null;
-
+        String f_string = "";
+        
 	    try {
-
-		    //br = new BufferedReader(new FileReader(FILENAME));
 		    fr = new FileReader(filename);
 		    br = new BufferedReader(fr);
 
 		    String sCurrentLine;
 
 		    while ((sCurrentLine = br.readLine()) != null) {
-			    System.out.println(sCurrentLine);
+			    f_string += sCurrentLine;
 		    }
-
-	    } catch (IOException e) {
-
+	    } 
+	    catch (IOException e) {
 		    e.printStackTrace();
-
-	    } finally {
-
+	    } 
+	    finally {
 		    try {
-
-			    if (br != null)
-				    br.close();
-
-			    if (fr != null)
-				    fr.close();
-
+			    if (br != null) br.close();
+			    if (fr != null) fr.close();
 		    } catch (IOException ex) {
-
 			    ex.printStackTrace();
-
 		    }
-
 	    }
-
+	    
+	    return f_string;
     }
     
     public static void append_to_file(String data)

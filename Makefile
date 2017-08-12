@@ -2,6 +2,8 @@ CC = javac
 CFLAGS = -g -Werror
 
 SRC_FILES = src/slave/LsMan.java\
+	src/slave/ShInter.java\
+	src/slave/Engine.java\
 	src/main.java
 
 
