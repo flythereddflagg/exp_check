@@ -71,7 +71,10 @@ public class Engine
         shi.printf("Select food for deletion:");
         String id = shi.input("  id > ");
         int idn = Integer.parseInt(id);
-        // figure out how to delete!!!
+        if (idn >= food_data.length() ||
+            idn < 0) {
+            msg = "Food id does"
+        }
     }
     
     public String get_food_list()
