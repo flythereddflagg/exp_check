@@ -3,9 +3,10 @@ The shell interface for our food editor
 */
 package slave;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.IOException;
+//import java.io.BufferedReader;
+//import java.io.InputStreamReader;
+//import java.io.IOException;
+import java.util.Scanner;
 
 public class ShInter 
 {
@@ -15,7 +16,7 @@ public class ShInter
         System.out.println(text);
     }
     
-    public String input(String prompt)
+    /*public String input(String prompt)
     {
         String s;
         System.out.print(prompt);
@@ -31,19 +32,23 @@ public class ShInter
             e.printStackTrace();
         }
         return s;
+    }*/
+    
+    public String input(String prompt)
+    {
+        String s;
+        System.out.print(prompt);
+
+        Scanner sc = new Scanner(System.in);
+        s = sc.nextLine();
+
+        return s;
     }
     
     public void clear()    
     {
         try {
-            final String os = System.getProperty("os.name");
-            
-            if (os.contains("Windows")) {
-                Runtime.getRuntime().exec("cls");
-            }
-            else {
-                System.out.print("\033[H\033[2J");
-            }
+            System.out.print("\033[H\033[2J");
         }
         catch (Exception e) {
             e.printStackTrace();

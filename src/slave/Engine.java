@@ -5,12 +5,13 @@ package slave;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.lang.NumberFormatException;
 
 public class Engine 
 {
     private ShInter shi;
     private LsMan manager;
-        private static List<String[]> food_data = new ArrayList<String[]>();
+    private static List<String[]> food_data = new ArrayList<String[]>();
     private String msg;
     private String menu_list = "\n" +
         "Options:\n" +
@@ -35,22 +36,40 @@ public class Engine
     }
     
     public void add_food()
-    {
-        shi.printf("Name for new food:");
-        String name  = shi.input("  Name  > ");
-        shi.printf("Expiration Date for new food:");
-        String year  = shi.input("  Year  > ");
-        String month = shi.input("  Month > ");
-        String day   = shi.input("  Day   > ");
+    {   
+        String name;
+        String year;
+        String month;
+        String day;
         
-        int year2  = Integer.parseInt(year);
-        int month2 = Integer.parseInt(month);
-        int day2   = Integer.parseInt(day);
-        if (day2 > 31   ||
-            day2 < 1    ||
+        int year2;
+        int month2;
+        int day2;
+        
+        shi.printf("Name for new food:");
+        name  = shi.input("  Name  > ");
+        shi.printf("Expiration Date for new food:");
+        
+        try {
+            year  = shi.input("  Year  > ");
+            year2 = Integer.parseInt(year);
+            
+            month  = shi.input("  Month > ");
+            month2 = Integer.parseInt(month);
+            
+            day  = shi.input("  Day   > ");
+            day2 = Integer.parseInt(day);
+        }
+        catch (NumberFormatException e) {
+            msg = "Invalid Value.";
+            return;
+        }
+        
+        if (day2   > 31 ||
+            day2   < 1  ||
             month2 > 12 ||
-            month2 < 1   ) 
-        {   
+            month2 < 1   ) {
+                
             msg = "Error: Impossible date.";
             return;
         }
@@ -71,10 +90,21 @@ public class Engine
         shi.printf("Select food for deletion:");
         String id = shi.input("  id > ");
         int idn = Integer.parseInt(id);
-        if (idn >= food_data.length() ||
+        if (idn >= food_data.size() ||
             idn < 0) {
-            msg = "Food id does"
+            msg = "Food id does not exist.";
+            return;
         }
+        String yes = shi.input(
+            String.format(
+                "Are you sure you want to delete \"%s\"? (y/n) ", 
+                food_data.get(idn)[3]));
+
+        if (!(yes == "y")) {
+            msg = yes; //"Item not deleted.";
+            return;   
+        }
+        manager.delete_item(idn); 
     }
     
     public String get_food_list()

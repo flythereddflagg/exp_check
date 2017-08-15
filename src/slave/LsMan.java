@@ -32,8 +32,34 @@ public class LsMan
             return data;
         }
         parse_csv(filestring);
-        return data;
-     
+        return data; 
+    }
+    
+    public void delete_item(int index)
+    {
+        data.remove(index);
+        write_to_csv();
+    }
+    
+    public void write_to_csv()
+    {
+        String filestring = "";
+        for (String[] row:data) {
+            for (String el:row) {
+                filestring += el + ",";
+            }
+            filestring += "\n";
+        }
+
+        try {
+            File file = new File(filename);
+            FileWriter fw = new FileWriter(file, false);
+            file.createNewFile();
+            fw.write(filestring);
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }           
     }
     
     public void parse_csv(String filestring)
@@ -94,7 +120,6 @@ public class LsMan
         FileWriter     fw = null;
         BufferedWriter bw = null; // set to null initially
         
-        
         try {
             File file = new File(filename);
             
@@ -106,7 +131,7 @@ public class LsMan
             bw = new BufferedWriter(fw);
             
             bw.write(data);
-            System.out.println("Done.");
+            //System.out.println("Done.");
         }
         catch (IOException e) {
             e.printStackTrace();
