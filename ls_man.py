@@ -46,8 +46,12 @@ class ListManager():
     
     def to_string(self):
         return '\n'.join([','.join(i) for i in self.food_list])
+    
+    def item_to_string(self, index):
+        i = self.food_list[index]
+        return "%s/%s/%s - %s" %(i[1],i[2],i[0],i[3])
 
-def test_main():
+def _test_main():
     nn = ListManager("lst.csv")
     '''
     ls = [
@@ -82,4 +86,4 @@ def test_main():
     print ""
 
 if __name__ == '__main__':
-    test_main()
+    _test_main()
