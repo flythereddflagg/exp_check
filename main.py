@@ -71,13 +71,15 @@ class Buttons(BoxLayout):
         self.init_gui()
     
     def init_gui(self):
-        super(Buttons, self).__init__(orientation='horizontal')
+        super(Buttons, self).__init__(orientation='horizontal', minimum_height=100)
         
-        self.add_button = Button(text="ADD", font_size=14)
+        self.add_button = Button(text="ADD", font_size=14,
+            size_hint_y=0.1)
         self.add_button.bind(on_press=self.callback)
         self.add_widget(self.add_button)
         
-        self.add_button2 = Button(text="Delete", font_size=14)
+        self.add_button2 = Button(text="Delete", font_size=14,
+            size_hint_y=0.1)
         self.add_button2.bind(on_press=self.callback)
         self.add_widget(self.add_button2)
         
