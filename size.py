@@ -69,6 +69,7 @@ class ExpCheckApp(App):
 
 if __name__ == '__main__':
     ExpCheckApp().run()
+
     """
 from kivy.app import App
 from kivy.lang import Builder

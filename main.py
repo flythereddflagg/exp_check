@@ -1,7 +1,7 @@
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
-from kivy.lang import Builder
+#from kivy.lang import Builder
 from kivy.uix.recycleview import RecycleView
 from kivy.uix.recycleview.views import RecycleDataViewBehavior
 from kivy.uix.label import Label
@@ -11,7 +11,7 @@ from kivy.uix.behaviors import FocusBehavior
 from kivy.uix.recycleview.layout import LayoutSelectionBehavior
 from ls_man import ListManager
 
-Builder.load_string('''
+"""Builder.load_string('''
 <SelectableLabel>:
     # Draw a background to indicate selection
     canvas.before:
@@ -30,7 +30,7 @@ Builder.load_string('''
         orientation: 'vertical'
         multiselect: True
         touch_multiselect: True
-''')
+''')"""
 
 
 class SelectableRecycleBoxLayout(FocusBehavior, LayoutSelectionBehavior,
@@ -69,6 +69,7 @@ class SelectableLabel(RecycleDataViewBehavior, Label):
 class Buttons(BoxLayout):
     def __init__(self):
         self.init_gui()
+        self.minimum_height=23
     
     def init_gui(self):
         super(Buttons, self).__init__(orientation='horizontal', minimum_height=100)
