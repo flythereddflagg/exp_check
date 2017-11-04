@@ -6,7 +6,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 # you can control the ScreenManager from kv. Each screen has by default a
 # property manager that gives you the instance of the ScreenManager used.
 Builder.load_string("""
-<MenuScreen>:
+<ListScreen>:
     BoxLayout:
         Button:
             text: 'Goto settings'
@@ -14,7 +14,7 @@ Builder.load_string("""
         Button:
             text: 'Quit'
 
-<SettingsScreen>:
+<AddScreen>:
     BoxLayout:
         Button:
             text: 'My settings button'
@@ -24,10 +24,10 @@ Builder.load_string("""
 """)
 
 # Declare both screens
-class MenuScreen(Screen):
+class ListScreen(Screen):
     pass
 
-class SettingsScreen(Screen):
+class AddScreen(Screen):
     pass
 
 # Create the screen manager
@@ -35,8 +35,8 @@ class SettingsScreen(Screen):
 class TestApp(App):
     def build(self):
         sm = ScreenManager()
-        sm.add_widget(MenuScreen(name='menu'))
-        sm.add_widget(SettingsScreen(name='settings'))
+        sm.add_widget(ListScreen(name='menu'))
+        sm.add_widget(AddScreen(name='settings'))
         return sm
 
 if __name__ == '__main__':

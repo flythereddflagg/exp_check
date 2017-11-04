@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-ls_man.py
-The food list manager for the exp_check program.
+list_manager.py
+The food list manager for the exp_check app.
 """
 from csv import reader, writer
 from operator import itemgetter
