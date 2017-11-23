@@ -55,7 +55,7 @@ class RV(RecycleView):
         self.data = [{'text': str(x)} for x in data]
 
         
-class ExChGUI(GridLayout):
+class ListScreenLayout(GridLayout):
     def __init__(self, lm, rv, root):
         self.root = root
         self.lm = lm
@@ -63,7 +63,7 @@ class ExChGUI(GridLayout):
         self.init_gui()
     
     def init_gui(self):
-        super(ExChGUI, self).__init__(rows=3)
+        super(ListScreenLayout, self).__init__(rows=3)
         
         self.add_button = Button(text="ADD", font_size=14,
             size_hint_y=0.1)
@@ -91,5 +91,5 @@ class ListScreen(Screen):
         super(ListScreen, self).__init__(**kwargs)
         data = lm.to_string().split('\n')
         rv = RV(data)
-        gui = ExChGUI(lm, rv, self)
+        gui = ListScreenLayout(lm, rv, self)
         self.add_widget(gui)
