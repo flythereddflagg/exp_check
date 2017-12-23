@@ -9,7 +9,8 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.label import Label
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.button import Button
-from KivyCalendar import DatePicker
+from kivy.uix.dropdown import DropDown
+#from KivyCalendar import DatePicker
 
 
 class AddScreenLayout(GridLayout):
@@ -34,7 +35,7 @@ class AddScreenLayout(GridLayout):
         food_name = TextInput()
         food_name.multiline = False
         
-        dt = DatePicker(pHint_x = 0.5, pHint_y = 0.5)
+        dt = TextInput()
         
         self.add_widget(label_date)
         self.add_widget(dt)
