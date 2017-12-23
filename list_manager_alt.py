@@ -17,10 +17,10 @@ class ListManager():
         self.food_list = []
         if not exists(self.filename):
             self.update_dat()
-        self.food_list = self.hf.load()
+        self.food_list = self.hf.load(self.filename)
 
     def update_dat(self):
-        self.hf.save(self.food_list, self.filename)
+        self.hf.save(self.to_string(), self.filename)
     
     def add_item(self, year, month, day, name):
         self.food_list.append([str(year), str(month), str(day), name])
