@@ -17,11 +17,17 @@ class Node(object):
         self.lc   = left_child
         self.rc   = right_child
     
+    def __eq__(self, other):
+        if other == None: return False
+        if self == other: return True
+        else: return False
+    
+    def __ne__(self, other):
+        if other == None: return True
+        if self != other: return True
+        else: return False
+    
     def __cmp__(self, other):
-        if other == None:
-            if self <  other: return -1
-            if self == other: return  0
-            if self >  other: return  1
         if self.freq <  other.freq: return -1
         if self.freq == other.freq: return  0
         if self.freq >  other.freq: return  1
@@ -92,16 +98,16 @@ class Huffman():
     def encode_data(self, data):
         out = ""
         self.get_encodings()
-        for i in list(data): out += emap[i]
+        for i in list(data): out += self.emap[i]
         return out
 
     def decode_data(self, data):
-        nd = htree.root_node
+        nd = self.htree.root_node
         out = ""
         for i in list(data):
             if nd.char != None:
                 out += nd.char
-                nd = htree.root_node
+                nd = self.htree.root_node
             if   i == '0': nd = nd.lc
             elif i == '1': nd = nd.rc
             else: return ""
@@ -120,25 +126,68 @@ class Huffman():
         if root == None: return
         if root.lc == None and root.rc == None: 
             self.emap[root.char] = code # we are at a leaf node
-        encode_rec(root.lc, code + '0')
-        encode_rec(root.rc, code + '1')
+        self.encode_rec(root.lc, code + '0')
+        self.encode_rec(root.rc, code + '1')
 
     def save(self, strdata, filename):
+        print "original length", len(strdata)
         if self.emap == {}:
             self.create_tree(data = strdata)
         self.get_encodings()
         bin_str = self.encode_data(strdata)
+        print len(bin_str)
         bin_str += '0' * (len(bin_str) % 8) # fill with zeros
-        print bin_str
-
+        #print bin_str
+        print len(bin_str)
+        str1 = ""
+        bytes1 = []
+        for i in list(bin_str):
+            if len(str1) < 8: str1 += i
+            else:
+                bytes1.append(str1)
+                str1 = "" + i
+        #bytes1.append(bin_str[-8:])
+        bytes1.append(str1)
+        #print bytes1
+        for i in range(len(bytes1)):
+            bytes1[i] = chr(int(bytes1[i],2))
+        #print bytes1
+        str2 = "".join(bytes1)
+        #print str2
+        #print "%r" % str2
+        print "compressed length", len(str2)
+        with open(filename, 'wb') as f:
+            f.write(str2)
+    
+    def load(self, filename):
+        with open(filename, 'rb') as f:
+            data = f.read()
+        bytes1 = []
+        for i in list(data):
+            ch = str(bin(ord(i)))[2:]
+            #print ch, len(ch), 8 - len(ch)%8
+            ch = ('0' * (8 - len(ch) % 8)) + ch if len(ch) != 8 else ch
+            bytes1.append(ch)
+        #print bytes1
+        bin_str = "".join(bytes1)
+        return self.decode_data(bin_str)
+        
         
 def main():
     fname = "db.dat"
     ht = Huffman()
     with open('lst.csv', 'rb') as f:
         data = f.read()
+    #data = "Hi! My Name is Mark!"
     
     ht.save(data, fname)
+    d = ht.load(fname)
+    for i in ht.emap:
+        print "",
+        print i, ht.emap[i]
+    print d
+
+    
 
 if __name__ == '__main__':
     main()
