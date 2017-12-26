@@ -1,3 +1,6 @@
+
+from operator import itemgetter
+
 dict1 = {
     'a':0.08167*56.0/125.0,
     'b':0.01492*56.0/125.0,
@@ -38,4 +41,12 @@ dict1 = {
     ',':24.0/125.0,
     '\n':8.0/125.0,
     '_':2.0/125.0,
-    '\'':0.0/125.0}
+    '*':0.0/125.0}
+
+gig = []
+for i in dict1:
+     gig.append([i, dict1[i]])
+
+gig = sorted(gig, key = itemgetter(1))
+for i in gig:
+    print i
