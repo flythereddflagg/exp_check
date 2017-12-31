@@ -39,47 +39,27 @@ class Tree():
 
         
 class Huffman():
+    hmap = { 
+        '*':0,   'z':33,  'q':42,  'x':67,  'j':68,  'k':345, 'v':438, 'b':668,
+        'p':864, 'y':884, 'g':902, 'f':998, 'w':1057,'m':1077,'u':1235,'c':1246,
+        '_':1600,'l':1803,'d':1905,'r':2682,'h':2730,'7':2800,'3':2800,'0':2800,
+        '6':2800,'9':2800,'8':2800,'2':2800,'5':2800,'1':2800,'4':2800,'s':2834,
+        'n':3023,'i':3120,'o':3363,'a':3658,'t':4057,'e':5690,'\n':6400,
+        '\r':6400,',':19200} # Huffman map for building tree
+    
     def __init__(self,
                 htree = Tree(), 
                 hmap  = {},
                 emap  = {}, 
                 pq    = []):
         self.htree = htree # Huffman tree (for decoding)
-        self.hmap  = hmap  # Huffman map for building tree
         self.emap  = emap  # encoding map
         self.pq    = pq    # priority queue for create_tree method
-    
+        self.gen_tree()
+        self.gen_encodings()
 
-    def clear(self):
-        self.clear_tree(self.htree.root_node)
-        self.htree = Tree()
-        self.hmap  = {}
-        self.emap  = {}
-        self.pq    = []
-    
-
-    def clear_tree(self, root):
-        if root == None: return
-        if root.lc != None:
-            self.clear_tree(root.lc)
-            del root.lc
-        if root.rc != None:
-            self.clear_tree(root.rc)
-            del root.rc
-
-            
-    def create_tree(self, data = None, filename = None):
-        self.clear()
-        if filename != None:
-            with open(filename, 'rb') as f:
-                data = f.read()
-        else:
-            for i in list(data):
-                if i not in self.hmap:
-                    self.hmap[i] = 0
-                self.hmap[i] += 1
+    def gen_tree(self):
         
-        # dict is ready, we can build the priority queue and htree
         for i in self.hmap:
             hpush(self.pq, Node(character = i, frequency = self.hmap[i]))
         while len(self.pq) > 1:
@@ -97,8 +77,11 @@ class Huffman():
     
     def encode_data(self, data):
         out = ""
-        self.get_encodings()
-        for i in list(data): out += self.emap[i]
+        for i in list(data):
+            try:
+                out += self.emap[i]
+            except KeyError:
+                out += self.emap['*']
         return out
 
     def decode_data(self, data):
@@ -116,11 +99,10 @@ class Huffman():
             nd = self.htree.root_node
         return out
             
-    def get_encodings(self):
+    def gen_encodings(self):
         self.emap = {}
         self.encode_rec(self.htree.root_node, "")
         return self.emap
-        
 
     def encode_rec(self, root, code):
         if root == None: return
@@ -130,42 +112,41 @@ class Huffman():
         self.encode_rec(root.rc, code + '1')
 
     def save(self, strdata, filename):
-        print "original length", len(strdata)
-        if self.emap == {}:
-            self.create_tree(data = strdata)
-        self.get_encodings()
-        bin_str = self.encode_data(strdata)
-        print len(bin_str)
-        bin_str += '0' * (len(bin_str) % 8) # fill with zeros
-        print len(bin_str)
-        str1 = ""
-        bytes1 = []
-        for i in list(bin_str):
-            if len(str1) < 8: str1 += i
+        bin_rep = self.encode_data(strdata) # binary representation of the data
+        bin_rep += '0' * (len(bin_rep) % 8) # fill with zeros
+        temp_string = ""
+        bytes = [] # list of bytes as string
+        for i in list(bin_rep): # split into groups of 8
+            if len(temp_string) < 8: temp_string += i
             else:
-                bytes1.append(str1)
-                str1 = "" + i
-        bytes1.append(str1)
+                bytes.append(temp_string)
+                temp_string = "" + i
+        bytes.append(temp_string)
 
-        for i in range(len(bytes1)):
-            bytes1[i] = chr(int(bytes1[i],2))
+        for i in range(len(bytes)): # interpret the bytes as chars
+            bytes[i] = chr(int(bytes[i],2))
 
-        str2 = "".join(bytes1)
+        to_file = "".join(bytes) # encoded string to be written to file
 
-        print "compressed length", len(str2)
         with open(filename, 'wb') as f:
-            f.write(str2)
+            #f.write(str(len(strdata)))
+            #f.write(chr(0))
+            f.write(to_file)
     
+
     def load(self, filename):
         with open(filename, 'rb') as f:
             data = f.read()
         bytes1 = []
+        ch = '0'
+        dlen = ""
+        #while(ch != chr(0)):
+        #    pass
+            
         for i in list(data):
             ch = str(bin(ord(i)))[2:]
-            #print ch, len(ch), 8 - len(ch)%8
             ch = ('0' * (8 - len(ch) % 8)) + ch if len(ch) != 8 else ch
             bytes1.append(ch)
-        #print bytes1
         bin_str = "".join(bytes1)
         return self.decode_data(bin_str)
         
@@ -181,7 +162,8 @@ def main():
     d = ht.load(fname)
     for i in ht.emap:
         print "",
-        print i, ht.emap[i]
+        print '%r' %i, ht.emap[i]
+    #print '%r' %d
     print d
 
     
