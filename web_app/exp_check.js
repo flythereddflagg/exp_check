@@ -1,4 +1,5 @@
 
+
 function open_it()
 {
     open('./home_screen.html', '_blank');
@@ -32,7 +33,7 @@ function add_options(list, data)
 function readTextFile(file1)
 {
 
-    var file = new File(file1);
+    var file = new File([""], file1);
 
     file.open("r"); // open file with read access
     var str = "";
@@ -44,4 +45,13 @@ function readTextFile(file1)
     alert(str);
 
 }
+
+
+var http = require('http');
+
+http.createServer(function (req, res) {
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.write(req.url)
+    res.end();
+}).listen(8080);
 
