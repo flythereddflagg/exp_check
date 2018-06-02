@@ -11,31 +11,37 @@ function close_it()
     }
 }
 
-function get_food()
+function generate_food_list()
 {
-    var food_list = document.getElementById("food_list")
+    var food_list = document.getElementById("food_list");
+    var data = readTextFile('data1.csv');
+    add_options(food_list, data)
     
 }
 
-function readTextFile(file)
+function add_options(list, data)
 {
-/**
-* Pulled this function from stack overflow I don't really know 
-* if it works
-*/
-    var rawFile = new XMLHttpRequest();
-    rawFile.open("GET", file, false);
-    rawFile.onreadystatechange = function ()
-    {
-        if(rawFile.readyState === 4)
-        {
-            if(rawFile.status === 200 || rawFile.status == 0)
-            {
-                var allText = rawFile.responseText;
-                alert(allText);
-            }
-        }
+    for (var i = 0; i < data.length; i++){
+        var opt = document.createElement('option');
+        opt.value = data[i];
+        opt.innerHTML = data[i];
+        list.appendChild(opt);
     }
-    rawFile.send(null);
+}
+
+function readTextFile(file1)
+{
+
+    var file = new File(file1);
+
+    file.open("r"); // open file with read access
+    var str = "";
+    while (!file.eof) {
+        // read each line of text
+        str += file.readln() + "\n";
+    }
+    file.close();
+    alert(str);
+
 }
 

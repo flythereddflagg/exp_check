@@ -4,7 +4,7 @@
 <title>Exp Check UI</title>
 </head>
 <script type="text/javascript" src="./exp_check.js"></script>
-<body>
+<body onload="generate_food_list();">
 <p>
 <button type="button" 
     onclick="location.href='./add_screen.html';">
@@ -15,6 +15,6 @@
 <select name="food_list", size="10">
   
 </select>
-<button type="button" onclick="close_it();">Close</button>
+<p><button type="button" onclick="close_it();">Close</button></p>
 </body>
 </html>
