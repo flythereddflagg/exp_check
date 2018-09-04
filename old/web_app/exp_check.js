@@ -1,3 +1,4 @@
+var http = require('http')
 var opn = require('opn');
 var fs = require('fs');
 
@@ -47,16 +48,19 @@ function readTextFile(file1)
 
 }
 
+function req_listen (request, response) 
+{  
+    var html = ""
+    fs.read('./home_screen.html', html, callback = function (
+        err, bytes_read, buffer){if (err) throw err;});
+    response.writeHeader(200, {"Content-Type": "text/html"});  
+    response.write(html);  
+    response.end();
+}
+
 function setup_server()
 {
-    var http = require('http');
-
-    http.createServer(function (req, res) {
-        res.writeHead(200, {'Content-Type': 'text/html'});
-        res.write(req.url)
-        res.end();
-    }).listen(8080);
-    console.log("Server Running at port 8080...");
+    http.createServer(req_listen).listen(8000);
 }
 
 
@@ -64,7 +68,7 @@ function main()
 {
     setup_server();
     open_it();
-    generate_food_list();
+    //generate_food_list();
 }
 
 main();
