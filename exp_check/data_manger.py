@@ -54,8 +54,8 @@ class DataManager():
                 raise ValueError(
                     "Name '{}' already exists in record!".format(name))
         except ValueError as msg:
-            print(msg)
-            return
+            return msg
+        
         self.raw_data["food data"][name] = {
             "expiration date" : date,
             "date added"      : ''.join(self.get_current_datetime()[:-2])
@@ -67,16 +67,15 @@ class DataManager():
         try:
             del self.raw_data["food data"][name]
         except KeyError as name:
-            print("Could not find food named {}.".format(name))
-            return
+            return "Could not find food named {}.".format(name)
         self.save_data()
    
     
     def to_string(self):
-        out = "{:^20} {:^10} {:^10}\n".format("Food","Added","Expires")
+        out = "{:^40} {:^10} {:^10}\n".format("Food","Added","Expires")
         for name in self.raw_data["food data"].keys():
         
-            out += "{:^20} {:^10} {:^10}\n".format(
+            out += "{:^40} {:^10} {:^10}\n".format(
                             name, 
                             self.raw_data["food data"][name]["date added"],
                             self.raw_data["food data"][name]["expiration date"])
@@ -84,19 +83,46 @@ class DataManager():
     
     
     def get_metadata(self):
+        out = ""
         for entry in self.raw_data.keys():
             if entry == "food data": continue
-            "{} {}".format(entry, self.raw_data[entry])
+            out += "{} {}\n".format(entry, self.raw_data[entry])
+        return out
     # get database?
     # sort database by key?
         
 def main():
     '''Driver test code'''
     dm = DataManager("./data.json")
+    print("--- init")
     print(dm.to_string())
-    dm.delete_entry("A cool can of beans")
+    
+    print("--- delete 'A cool can of beans'")
+    msg = dm.delete_entry("A cool can of beans")
+    if msg is not None: 
+        print(msg)
+
     print(dm.to_string())
-    dm.add_entry("y nice can of beans", "181201")
+    
+    print("--- delete 'goo'")
+    msg = dm.delete_entry("goo")
+    if msg is not None: 
+        print(msg)
+
+    print(dm.to_string())
+
+    print("--- add goo 181202") 
+    msg = dm.add_entry("goo", "181202")
+    if msg is not None: 
+        print(msg)
+   
+    print(dm.to_string())
+    
+    print("--- add y nice can of beans 181201")
+    msg = dm.add_entry("y nice can of beans", "181201")
+    if msg is not None: 
+        print(msg)
+    
     print(dm.to_string())
     print(dm.get_metadata())
     
