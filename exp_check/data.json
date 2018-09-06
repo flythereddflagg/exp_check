@@ -21,6 +21,10 @@
             "expiration date": "181201"
         }
     },
-    "last read date/time": "1809061112",
-    "last write date/time": "1809061112"
+    "key list": [
+        "date added",
+        "expiration date"
+    ],
+    "last read date/time": "1809061541",
+    "last write date/time": "1809061541"
 }

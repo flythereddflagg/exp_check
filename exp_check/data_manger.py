@@ -88,8 +88,23 @@ class DataManager():
             if entry == "food data": continue
             out += "{} {}\n".format(entry, self.raw_data[entry])
         return out
-    # get database?
-    # sort database by key?
+
+
+    def get_database(self, key_list):
+        # catch errors here?
+        database = []
+        for food in self.raw_data["food data"].keys():
+            entry = [food]
+            for key in key_list:
+                entry.append(self.raw_data["food data"][food][key])
+            database.append(entry)
+        return database
+
+        
+    def get_keylist(self):
+        return self.raw_data["key list"]
+
+
         
 def main():
     '''Driver test code'''
@@ -125,7 +140,10 @@ def main():
     
     print(dm.to_string())
     print(dm.get_metadata())
-    
+    print(dm.get_keylist(),'\n')
+    db = dm.get_database(dm.get_keylist())
+    for i in db:
+        print(i)
 
 if __name__ == "__main__":
     main()
