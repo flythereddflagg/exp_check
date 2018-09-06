@@ -9,7 +9,7 @@ import json
 import datetime
 
 
-class DataManager():
+class DataManager():               
     
     def __init__(self, data_path):
         self.data_path = data_path
@@ -49,8 +49,13 @@ class DataManager():
     
     def add_entry(self, name, date):
         
-        if name in self.raw_data["food data"].keys():
-            raise ValueError("Name '{}' already exists in record!".format(name))
+        try:
+            if name in self.raw_data["food data"].keys():
+                raise ValueError(
+                    "Name '{}' already exists in record!".format(name))
+        except ValueError as msg:
+            print(msg)
+            return
         self.raw_data["food data"][name] = {
             "expiration date" : date,
             "date added"      : ''.join(self.get_current_datetime()[:-2])
@@ -59,17 +64,41 @@ class DataManager():
     
     
     def delete_entry(self, name):
-        del self.raw_data["food data"][name]
+        try:
+            del self.raw_data["food data"][name]
+        except KeyError as name:
+            print("Could not find food named {}.".format(name))
+            return
         self.save_data()
-     
+   
+    
+    def to_string(self):
+        out = "{:^20} {:^10} {:^10}\n".format("Food","Added","Expires")
+        for name in self.raw_data["food data"].keys():
+        
+            out += "{:^20} {:^10} {:^10}\n".format(
+                            name, 
+                            self.raw_data["food data"][name]["date added"],
+                            self.raw_data["food data"][name]["expiration date"])
+        return out
+    
+    
+    def get_metadata(self):
+        for entry in self.raw_data.keys():
+            if entry == "food data": continue
+            "{} {}".format(entry, self.raw_data[entry])
     # get database?
     # sort database by key?
         
 def main():
     '''Driver test code'''
     dm = DataManager("./data.json")
-    dm.delete_entry("goo")
-    dm.add_entry("goo", "181201")
+    print(dm.to_string())
+    dm.delete_entry("A cool can of beans")
+    print(dm.to_string())
+    dm.add_entry("y nice can of beans", "181201")
+    print(dm.to_string())
+    print(dm.get_metadata())
     
 
 if __name__ == "__main__":

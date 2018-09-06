@@ -1,14 +1,26 @@
 {
     "food data": {
+        "A nice can of beans": {
+            "date added": "180905",
+            "expiration date": "181201"
+        },
         "goo": {
-            "date added": "180903",
+            "date added": "180905",
             "expiration date": "181201"
         },
         "goo0": {
             "date added": "180903",
             "expiration date": "181201"
+        },
+        "y nice can of beans": {
+            "date added": "180905",
+            "expiration date": "181201"
+        },
+        "z nice can of beans": {
+            "date added": "180905",
+            "expiration date": "181201"
         }
     },
-    "last read date/time": "1809031919",
-    "last write date/time": "1809031919"
+    "last read date/time": "1809052023",
+    "last write date/time": "1809052018"
 }
