@@ -20,8 +20,11 @@ class DataManager():
         with open(self.data_path, 'r') as f:
             self.raw_data = json.load(f)
         
-        read_time = self.get_current_datetime()
-        self.raw_data["last read date/time"] = ''.join(read_time)
+        self.read_time = self.get_current_datetime()
+        self.write_time = self.raw_data["last write date/time"]
+        self.key_list   = self.raw_data["key list"]
+        
+        self.raw_data["last read date/time"] = self.read_time
         
         if "food data" not in self.raw_data.keys():
             self.raw_data["food data"] = {}
@@ -32,8 +35,8 @@ class DataManager():
             
     def save_data(self):
         with open(self.data_path, 'w') as f:
-            write_time = self.get_current_datetime()
-            self.raw_data["last write date/time"] = ''.join(write_time)
+            self.write_time = self.get_current_datetime()
+            self.raw_data["last write date/time"] = self.write_time
             json.dump(self.raw_data, f, indent=4, sort_keys=True)
             
             
@@ -44,7 +47,7 @@ class DataManager():
         day    = str(current_datetime.day         ).zfill(2)
         hour   = str(current_datetime.hour        ).zfill(2)
         minute = str(current_datetime.minute      ).zfill(2)
-        return [year,month,day,hour,minute]
+        return ''.join([year, month, day, hour, minute])
     
     
     def add_entry(self, name, date):
@@ -58,7 +61,7 @@ class DataManager():
         
         self.raw_data["food data"][name] = {
             "expiration date" : date,
-            "date added"      : ''.join(self.get_current_datetime()[:-2])
+            "date added"      : ''.join(self.get_current_datetime()[:-4])
             }
         self.save_data()
     
@@ -90,14 +93,36 @@ class DataManager():
         return out
 
 
-    def get_database(self, key_list):
-        # catch errors here?
+    def get_database(self, key_list=None, sort_key=None):
+        """
+        Returns the database as a list of lists. Does not include meta data.
+        If key_list is provided it only includes the food names and any
+        keys provided in the list.
+        If sort_key is used it sorts by the key provided before returning the
+        database.        
+        """
+        # how to catch exceptions?
+        if key_list is None:
+            key_list = self.raw_data["key list"]
+        
+        for key in key_list:
+            if key not in self.raw_data["key list"]:
+                raise KeyError("Key not found {}".format(key))
+                
         database = []
         for food in self.raw_data["food data"].keys():
             entry = [food]
             for key in key_list:
                 entry.append(self.raw_data["food data"][food][key])
             database.append(entry)
+        
+        if sort_key is not None:
+            name_ind = 0
+            database.sort(key=lambda x: x[name_ind])
+            if sort_key is not 'name':
+                key_ind = key_list.index(sort_key) + 1
+                database.sort(key=lambda x: int(x[key_ind]))
+        
         return database
 
         
@@ -142,6 +167,21 @@ def main():
     print(dm.get_metadata())
     print(dm.get_keylist(),'\n')
     db = dm.get_database(dm.get_keylist())
+    for i in db:
+        print(i)
+    
+    print("\n")
+    db = dm.get_database(dm.get_keylist(), sort_key='name')
+    for i in db:
+        print(i)
+    
+    print("\n")
+    db = dm.get_database(dm.get_keylist(), sort_key='date added')
+    for i in db:
+        print(i)
+    
+    print("\n")
+    db = dm.get_database(dm.get_keylist(), sort_key='expiration date')
     for i in db:
         print(i)
 
