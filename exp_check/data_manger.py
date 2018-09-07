@@ -17,14 +17,15 @@ class DataManager():
 
 
     def load_data(self):
+        """
+        Loads the data from the data file then writes the read time and saves
+        it to the file.
+        """
         with open(self.data_path, 'r') as f:
             self.raw_data = json.load(f)
         
-        self.read_time = self.get_current_datetime()
-        self.write_time = self.raw_data["last write date/time"]
-        self.key_list   = self.raw_data["key list"]
-        
-        self.raw_data["last read date/time"] = self.read_time
+        read_time = self.get_current_datetime()
+        self.raw_data["last read date/time"] = self.get_current_datetime()
         
         if "food data" not in self.raw_data.keys():
             self.raw_data["food data"] = {}
@@ -34,13 +35,20 @@ class DataManager():
 
             
     def save_data(self):
+        """
+        Writes the current time to the "last write date/time" key in the meta
+        data. Then saves the all the data to the json file.
+        """
         with open(self.data_path, 'w') as f:
-            self.write_time = self.get_current_datetime()
-            self.raw_data["last write date/time"] = self.write_time
+            self.raw_data["last write date/time"] = self.get_current_datetime()
             json.dump(self.raw_data, f, indent=4, sort_keys=True)
             
             
     def get_current_datetime(self):
+        """
+        @returns the system date and time as a string with the 
+        format: YYMMddhhmm
+        """
         current_datetime = datetime.datetime.now()
         year   = str(current_datetime.year % 2000 ).zfill(2)
         month  = str(current_datetime.month       ).zfill(2)
@@ -51,7 +59,12 @@ class DataManager():
     
     
     def add_entry(self, name, date):
-        
+        """
+        Adds an entry with the value @param - name
+        and expiration date @param - date
+        @returns a string as an error if the record is already in the database,
+        None if successful 
+        """
         try:
             if name in self.raw_data["food data"].keys():
                 raise ValueError(
@@ -67,6 +80,11 @@ class DataManager():
     
     
     def delete_entry(self, name):
+        """
+        Deletes an entry with the value @param - name
+        @returns a string as an error if the record is not in the database,
+        None if successful 
+        """
         try:
             del self.raw_data["food data"][name]
         except KeyError as name:
@@ -75,6 +93,9 @@ class DataManager():
    
     
     def to_string(self):
+        """
+        @returns the food database as a string
+        """
         out = "{:^40} {:^10} {:^10}\n".format("Food","Added","Expires")
         for name in self.raw_data["food data"].keys():
         
@@ -86,6 +107,9 @@ class DataManager():
     
     
     def get_metadata(self):
+        """
+        @returns the metadata from the json file
+        """
         out = ""
         for entry in self.raw_data.keys():
             if entry == "food data": continue
@@ -95,11 +119,11 @@ class DataManager():
 
     def get_database(self, key_list=None, sort_key=None):
         """
-        Returns the database as a list of lists. Does not include meta data.
-        If key_list is provided it only includes the food names and any
-        keys provided in the list.
-        If sort_key is used it sorts by the key provided before returning the
-        database.        
+        @returns the database as a list of lists. Does not include meta data.
+        If @params - key_list is provided it only includes the food names and
+        any keys provided in the list.
+        If @params - sort_key is used it sorts by the key provided before
+        returning the database.        
         """
         # how to catch exceptions?
         if key_list is None:
@@ -127,6 +151,9 @@ class DataManager():
 
         
     def get_keylist(self):
+        """
+        @returns the list of keys availible for each food.
+        """
         return self.raw_data["key list"]
 
 
@@ -185,5 +212,7 @@ def main():
     for i in db:
         print(i)
 
+
 if __name__ == "__main__":
     main()
+
