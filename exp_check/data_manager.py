@@ -154,7 +154,7 @@ class DataManager():
         """
         @returns the list of keys availible for each food.
         """
-        return self.raw_data["key list"]
+        return self.raw_data["key list"].copy()
 
 
         

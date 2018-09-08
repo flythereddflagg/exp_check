@@ -5,9 +5,10 @@ file   : exp_check/data_manager.py
 author : Mark Redd
 
 """
-from tkinter import Tk, Button, Entry, Listbox, OptionMenu\
-    , END, BOTH, N, S, E, W, StringVar, PhotoImage
+from tkinter import Tk, Button, Entry, Listbox, OptionMenu, Label\
+    , END, BOTH, N, S, E, W, StringVar
 from data_manager import DataManager
+from PIL import Image, ImageTk
 
 
 class ExpCheckGUI(Tk):
@@ -41,18 +42,28 @@ class ExpCheckGUI(Tk):
         #self.search_box.insert(0,"Search")
         self.data_display  = Listbox(**widget_options)
         self.d = StringVar()
-        self.sort_menu = OptionMenu(self, variable=self.d, value="d")
-        arrow = PhotoImage(file="arrow.png")
-        #self.sort_menu.configure(indicatoron=0, compound='right', image=arrow)
+        vals = self.data_manager.get_keylist()
+        vals.insert(0,'name')
+        self.sort_menu = OptionMenu(self, self.d, *vals)
+        self.sort_menu.config(bg = 'black', fg = 'white')
+        
+        search_icon = self.generate_icon_object("search_icon.png", (20,20))
+        self.search_label = Label(image=search_icon, **widget_options)
+        self.search_label.image = search_icon
+        
+        
         
         # place widgets
         self.add_button.grid(    row=0, column=0, **grid_options)
         self.delete_button.grid( row=0, column=1, **grid_options)
-        self.search_box.grid(    row=2, column=0, **grid_options)
-        self.data_display.grid(  row=3, column=0, **grid_options,
-                                 columnspan=2, sticky=N+S+E+W)
-        self.sort_menu.grid(row=4, column=0)
         
+        self.data_display.grid(  row=3, column=0, **grid_options,
+                                 columnspan=6, sticky=N+S+E+W)
+        
+        self.search_label.grid(row=0, column=3)
+        self.search_box.grid(    row=0, column=4, **grid_options)
+        self.sort_menu.grid(row=0, column=5, **grid_options)
+       
         for item in self.data_manager.get_database(
                                        key_list=self.data_manager.get_keylist(), 
                                        sort_key='name'):
@@ -60,12 +71,17 @@ class ExpCheckGUI(Tk):
             item_str = "{:^40}\t {:^10}\t {:^10}".format(*item)
             self.data_display.insert(END, item_str)
         
-
+        
+    def generate_icon_object(self, path, size):
+        image = Image.open(path)
+        image.convert("RGBA")
+        image.thumbnail(size, Image.ANTIALIAS)
+        return ImageTk.PhotoImage(image)
 
 def main():
     data_manager = DataManager("./data.json")
     gui = ExpCheckGUI(data_manager)
-    gui.geometry("400x400+200+200")
+    gui.geometry("450x250+200+200")
     gui.mainloop()
 
 if __name__ == "__main__":
