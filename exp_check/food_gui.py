@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 """
-file   : exp_check/data_manager.py
+file   : exp_check/food_gui.py
 author : Mark Redd
 
 """
@@ -10,6 +10,8 @@ from tkinter import Tk, Button, Entry, Listbox, OptionMenu, Label\
 from data_manager import DataManager
 from PIL import Image, ImageTk
 from tkinter.ttk import Menubutton, Style
+from string import printable
+from add_food_gui import AddFoodGUI
 
 
 class ExpCheckGUI(Tk):
@@ -17,6 +19,8 @@ class ExpCheckGUI(Tk):
         super().__init__()
         self.data_manager = data_manager
         self.searching = False
+        self.good_chars = printable[:-5] + '\x08'
+        self.add_gui = AddFoodGUI(self)
         self.init_gui()
     
     
@@ -24,43 +28,34 @@ class ExpCheckGUI(Tk):
         self.title("exp_check")
         self.config(bg='black')
         
-        self.columnconfigure(0, weight=1)
-        self.columnconfigure(1, weight=1)
         style = Style()
         style.configure("TMenubutton", foreground="white", background="black")
         
         widget_options = {
-            "master" : self,
             "bg"     : "black",
             "fg"     : "white"
             }
-         
-        grid_options = {
-            "padx" : 3,
-            "pady" : 3
-            }
-            
         # setup widgets
-        self.add_button    = Button(text="Add Food",    **widget_options)
-        self.delete_button = Button(text="Delete Food", **widget_options, 
-                                    command=self.update_list_box)
+        self.add_button    = Button(self, text="Add Food",    **widget_options,
+                                    command=self.add_food)
+        self.delete_button = Button(self, text="Delete Food", **widget_options, 
+                                    command=self.delete_food)
         
-        self.search_box    = Entry(insertbackground='white', **widget_options)
+        self.search_box    = Entry(self,  **widget_options,
+                                    insertbackground='white')
         self.search_box.bind("<Key>", self.search)
-        self.search_box.bind("<FocusOut>", 
-            lambda event: self.start_stop_search(False))
 
         self.data_display  = Listbox(**widget_options)
-        self.d = StringVar()
+        self.sort_selection = StringVar()
         vals = self.data_manager.get_keylist()
         vals.insert(0,'name')
         menu1 = Menu(tearoff=0)
         menu1.add('radiobutton',label=vals[0], 
-                command=lambda: self.update_list_box(sort_key=vals[0]))
+                command=lambda: self.update_data_display(sort_key=vals[0]))
         menu1.add('radiobutton',label=vals[1], 
-                command=lambda: self.update_list_box(sort_key=vals[1]))
+                command=lambda: self.update_data_display(sort_key=vals[1]))
         menu1.add('radiobutton',label=vals[2], 
-                command=lambda: self.update_list_box(sort_key=vals[2]))
+                command=lambda: self.update_data_display(sort_key=vals[2]))
 
         self.sort_menu = Menubutton(self, text='sort by', 
                                     menu=menu1, style="TMenubutton")        
@@ -68,18 +63,26 @@ class ExpCheckGUI(Tk):
         search_icon = self.generate_icon_object("search_icon.png", (20,20))
         self.search_label = Label(image=search_icon, **widget_options)
         self.search_label.image = search_icon
+        
+        self.grid_widgets()
 
+    def grid_widgets(self):
         # place widgets
+        self.title("exp_check")
+        self.columnconfigure(0, weight=1)
+        self.columnconfigure(1, weight=1)
+        grid_options = {
+            "padx" : 3,
+            "pady" : 3
+            }
         self.add_button.grid(    row=0, column=0, **grid_options)
         self.delete_button.grid( row=0, column=1, **grid_options)
-        
         self.data_display.grid(  row=3, column=0, **grid_options,
                                  columnspan=6, sticky=N+S+E+W)
-        
         self.search_label.grid(row=0, column=3)
         self.search_box.grid(    row=0, column=4, **grid_options)
         self.sort_menu.grid(row=0, column=5, **grid_options)
-        self.update_list_box()
+        self.update_data_display()
 
         
     def generate_icon_object(self, path, size):
@@ -88,9 +91,11 @@ class ExpCheckGUI(Tk):
         image.thumbnail(size, Image.ANTIALIAS)
         return ImageTk.PhotoImage(image)
     
-    def update_list_box(self, event=None, sort_key='name', key_list=None):
+    
+    def update_data_display(self, event=None, sort_key='name',
+                            key_list=None, search_string=None):
         """
-        Updates the list box with new information
+        Synchronizes the list box with the database from the data manager
         """
         if key_list is None: key_list = self.data_manager.get_keylist()
         self.data_display.delete(0, END)
@@ -99,16 +104,48 @@ class ExpCheckGUI(Tk):
                                        sort_key=sort_key):
             
             item_str = "{} {} {}".format(*item)
-            self.data_display.insert(END, item_str)
+            if  search_string is None or\
+                search_string in item_str.lower():
+                    self.data_display.insert(END, item_str)
+
     
     def search(self, event=None):
-        print(event)
+        """
+        Updates the data display with whatever is in the search box. Will run
+        any time a key is pressed while focused on the search box.
+        """
         search_string = self.search_box.get()
-        newchar = "" if event is None else event.char
-        print(search_string + newchar)
-    
-    def start_stop_search(self, state):
-        print("stopped")
+        if event is None or event.char not in self.good_chars:
+            newchar = ""
+        elif event.char == '\x08':
+            search_string = search_string[:-1]
+            newchar = ""
+        else:
+            newchar = event.char
+
+        search_string += newchar
+        search_string = search_string.lower()
+
+        self.update_data_display(search_string=search_string)
+
+
+    def add_food(self, event=None):
+        self.add_button.grid_forget()
+        self.delete_button.grid_forget()
+        self.data_display.grid_forget()                        
+        self.search_label.grid_forget()
+        self.search_box.grid_forget()
+        self.sort_menu.grid_forget()
+        
+        self.add_gui.grid_widgets()
+        
+        
+        
+        
+    def delete_food(self, event=None):
+        pass
+        
+
 
 def main():
     data_manager = DataManager("./data.json")
