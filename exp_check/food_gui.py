@@ -9,21 +9,25 @@ from tkinter import Tk, Button, Entry, Listbox, OptionMenu, Label\
     , END, BOTH, N, S, E, W, StringVar,  Menu
 from data_manager import DataManager
 from PIL import Image, ImageTk
-from tkinter.ttk import Menubutton
+from tkinter.ttk import Menubutton, Style
 
 
 class ExpCheckGUI(Tk):
     def __init__(self, data_manager):
         super().__init__()
         self.data_manager = data_manager
+        self.searching = False
         self.init_gui()
     
     
     def init_gui(self):
         self.title("exp_check")
         self.config(bg='black')
+        
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=1)
+        style = Style()
+        style.configure("TMenubutton", foreground="white", background="black")
         
         widget_options = {
             "master" : self,
@@ -40,25 +44,31 @@ class ExpCheckGUI(Tk):
         self.add_button    = Button(text="Add Food",    **widget_options)
         self.delete_button = Button(text="Delete Food", **widget_options, 
                                     command=self.update_list_box)
+        
         self.search_box    = Entry(insertbackground='white', **widget_options)
-        #self.search_box.insert(0,"Search")
+        self.search_box.bind("<Key>", self.search)
+        self.search_box.bind("<FocusOut>", 
+            lambda event: self.start_stop_search(False))
+
         self.data_display  = Listbox(**widget_options)
         self.d = StringVar()
         vals = self.data_manager.get_keylist()
         vals.insert(0,'name')
-        menu1 = Menu()
-        menu1.add('radiobutton',label="c")
-        menu1.add('radiobutton',label="d")
-        self.sort_menu = Menubutton(self, text='sort by', menu=menu1)
-        #self.sort_menu = OptionMenu(self, self.d,'sort by...')
-        #self.sort_menu.config(bg = 'black', fg = 'white')
+        menu1 = Menu(tearoff=0)
+        menu1.add('radiobutton',label=vals[0], 
+                command=lambda: self.update_list_box(sort_key=vals[0]))
+        menu1.add('radiobutton',label=vals[1], 
+                command=lambda: self.update_list_box(sort_key=vals[1]))
+        menu1.add('radiobutton',label=vals[2], 
+                command=lambda: self.update_list_box(sort_key=vals[2]))
+
+        self.sort_menu = Menubutton(self, text='sort by', 
+                                    menu=menu1, style="TMenubutton")        
         
         search_icon = self.generate_icon_object("search_icon.png", (20,20))
         self.search_label = Label(image=search_icon, **widget_options)
         self.search_label.image = search_icon
-        
-        
-        
+
         # place widgets
         self.add_button.grid(    row=0, column=0, **grid_options)
         self.delete_button.grid( row=0, column=1, **grid_options)
@@ -70,8 +80,7 @@ class ExpCheckGUI(Tk):
         self.search_box.grid(    row=0, column=4, **grid_options)
         self.sort_menu.grid(row=0, column=5, **grid_options)
         self.update_list_box()
-        
-        
+
         
     def generate_icon_object(self, path, size):
         image = Image.open(path)
@@ -80,15 +89,26 @@ class ExpCheckGUI(Tk):
         return ImageTk.PhotoImage(image)
     
     def update_list_box(self, event=None, sort_key='name', key_list=None):
+        """
+        Updates the list box with new information
+        """
         if key_list is None: key_list = self.data_manager.get_keylist()
         self.data_display.delete(0, END)
         for item in self.data_manager.get_database(
                                        key_list=key_list, 
-                                       sort_key='name'):
+                                       sort_key=sort_key):
             
             item_str = "{} {} {}".format(*item)
             self.data_display.insert(END, item_str)
     
+    def search(self, event=None):
+        print(event)
+        search_string = self.search_box.get()
+        newchar = "" if event is None else event.char
+        print(search_string + newchar)
+    
+    def start_stop_search(self, state):
+        print("stopped")
 
 def main():
     data_manager = DataManager("./data.json")
