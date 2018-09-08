@@ -6,9 +6,10 @@ author : Mark Redd
 
 """
 from tkinter import Tk, Button, Entry, Listbox, OptionMenu, Label\
-    , END, BOTH, N, S, E, W, StringVar
+    , END, BOTH, N, S, E, W, StringVar,  Menu
 from data_manager import DataManager
 from PIL import Image, ImageTk
+from tkinter.ttk import Menubutton
 
 
 class ExpCheckGUI(Tk):
@@ -37,15 +38,20 @@ class ExpCheckGUI(Tk):
             
         # setup widgets
         self.add_button    = Button(text="Add Food",    **widget_options)
-        self.delete_button = Button(text="Delete Food", **widget_options)
+        self.delete_button = Button(text="Delete Food", **widget_options, 
+                                    command=self.update_list_box)
         self.search_box    = Entry(insertbackground='white', **widget_options)
         #self.search_box.insert(0,"Search")
         self.data_display  = Listbox(**widget_options)
         self.d = StringVar()
         vals = self.data_manager.get_keylist()
         vals.insert(0,'name')
-        self.sort_menu = OptionMenu(self, self.d, *vals)
-        self.sort_menu.config(bg = 'black', fg = 'white')
+        menu1 = Menu()
+        menu1.add('radiobutton',label="c")
+        menu1.add('radiobutton',label="d")
+        self.sort_menu = Menubutton(self, text='sort by', menu=menu1)
+        #self.sort_menu = OptionMenu(self, self.d,'sort by...')
+        #self.sort_menu.config(bg = 'black', fg = 'white')
         
         search_icon = self.generate_icon_object("search_icon.png", (20,20))
         self.search_label = Label(image=search_icon, **widget_options)
@@ -63,13 +69,8 @@ class ExpCheckGUI(Tk):
         self.search_label.grid(row=0, column=3)
         self.search_box.grid(    row=0, column=4, **grid_options)
         self.sort_menu.grid(row=0, column=5, **grid_options)
-       
-        for item in self.data_manager.get_database(
-                                       key_list=self.data_manager.get_keylist(), 
-                                       sort_key='name'):
-            
-            item_str = "{:^40}\t {:^10}\t {:^10}".format(*item)
-            self.data_display.insert(END, item_str)
+        self.update_list_box()
+        
         
         
     def generate_icon_object(self, path, size):
@@ -77,6 +78,17 @@ class ExpCheckGUI(Tk):
         image.convert("RGBA")
         image.thumbnail(size, Image.ANTIALIAS)
         return ImageTk.PhotoImage(image)
+    
+    def update_list_box(self, event=None, sort_key='name', key_list=None):
+        if key_list is None: key_list = self.data_manager.get_keylist()
+        self.data_display.delete(0, END)
+        for item in self.data_manager.get_database(
+                                       key_list=key_list, 
+                                       sort_key='name'):
+            
+            item_str = "{} {} {}".format(*item)
+            self.data_display.insert(END, item_str)
+    
 
 def main():
     data_manager = DataManager("./data.json")
