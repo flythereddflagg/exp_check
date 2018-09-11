@@ -6,7 +6,7 @@ author : Mark Redd
 
 """
 from tkinter import Tk, Button, Entry, Listbox, OptionMenu, Label\
-    , END, BOTH, N, S, E, W, StringVar,  Menu
+    , END, BOTH, N, S, E, W, StringVar,  Menu, ACTIVE
 from data_manager import DataManager
 from PIL import Image, ImageTk
 from tkinter.ttk import Menubutton, Style
@@ -62,13 +62,19 @@ class ExpCheckGUI(Tk):
         
         search_icon = self.generate_icon_object("search_icon.png", (20,20))
         self.search_label = Label(image=search_icon, **widget_options)
-        self.search_label.image = search_icon
+        self.search_label.image = search_icon\
+        
+        self.message = Label(self, text='', **widget_options)
+        self.okay_button = Button(self, text="   OK   ", 
+                        **widget_options, 
+                        command=lambda: self.okay_button_press(self.cur_instance))
         
         self.grid_widgets()
 
     def grid_widgets(self):
         # place widgets
         self.title("exp_check")
+        self.cur_instance = self
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=1)
         grid_options = {
@@ -143,8 +149,27 @@ class ExpCheckGUI(Tk):
         
         
     def delete_food(self, event=None):
-        pass
-        
+        selection = self.data_display.get(ACTIVE).split()
+        if not selection: return
+        name = ' '.join(selection[0:-2]) if len(selection) > 3 else selection[0]
+        msg = self.data_manager.delete_entry(name)
+        if msg is not None: 
+            self.msg_box_init(self, msg)
+            return
+        self.update_data_display()
+    
+    
+    def msg_box_init(self, instance, msg='a message'):
+        instance.un_grid_widgets()
+        self.message['text'] = msg
+        self.message.grid(row=0, column=0)
+        self.okay_button.grid(row=1, column=0)
+    
+    
+    def okay_button_press(self, instance, event=None):
+        self.message.grid_forget()
+        self.okay_button.grid_forget()
+        instance.grid_widgets()    
 
 
 def main():
