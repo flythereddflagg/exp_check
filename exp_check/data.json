@@ -1,9 +1,22 @@
 {
-    "food data": {},
+    "food data": {
+        "adfads": {
+            "date added": "180911",
+            "expiration date": "180912"
+        },
+        "sdfgsdfg": {
+            "date added": "180911",
+            "expiration date": "180921"
+        },
+        "xvcb": {
+            "date added": "180911",
+            "expiration date": "180913"
+        }
+    },
     "key list": [
         "date added",
         "expiration date"
     ],
-    "last read date/time": "1809111754",
-    "last write date/time": "1809111754"
+    "last read date/time": "1809111825",
+    "last write date/time": "1809111824"
 }

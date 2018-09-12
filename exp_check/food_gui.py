@@ -5,13 +5,14 @@ file   : exp_check/food_gui.py
 author : Mark Redd
 
 """
-from tkinter import Tk, Button, Entry, Listbox, OptionMenu, Label\
+from tkinter import Tk, Frame, Button, Entry, OptionMenu, Label\
     , END, BOTH, N, S, E, W, StringVar,  Menu, ACTIVE
 from data_manager import DataManager
 from PIL import Image, ImageTk
 from tkinter.ttk import Menubutton, Style
 from string import printable
 from add_food_gui import AddFoodGUI
+from data_display_mod import DataDisplay
 
 
 class ExpCheckGUI(Tk):
@@ -45,7 +46,7 @@ class ExpCheckGUI(Tk):
                                     insertbackground='white')
         self.search_box.bind("<Key>", self.search)
 
-        self.data_display  = Listbox(**widget_options)
+        self.data_display  = DataDisplay(widget_options)
         self.sort_selection = StringVar()
         vals = self.data_manager.get_keylist()
         vals.insert(0,'name')
@@ -84,7 +85,7 @@ class ExpCheckGUI(Tk):
         self.add_button.grid(    row=0, column=0, **grid_options)
         self.delete_button.grid( row=0, column=1, **grid_options)
         self.data_display.grid(  row=3, column=0, **grid_options,
-                                 columnspan=6, sticky=N+S+E+W)
+                                 columnspan=5)#, sticky=N+S+E+W)
         self.search_label.grid(row=0, column=3)
         self.search_box.grid(    row=0, column=4, **grid_options)
         self.sort_menu.grid(row=0, column=5, **grid_options)
@@ -112,7 +113,7 @@ class ExpCheckGUI(Tk):
             item_str = "{} {} {}".format(*item)
             if  search_string is None or\
                 search_string in item_str.lower():
-                    self.data_display.insert(END, item_str)
+                    self.data_display.insert(END, item)
 
     
     def search(self, event=None):
@@ -175,7 +176,7 @@ class ExpCheckGUI(Tk):
 def main():
     data_manager = DataManager("./data.json")
     gui = ExpCheckGUI(data_manager)
-    gui.geometry("450x250+200+200")
+    gui.geometry("475x250+200+200") # adjust herer
     gui.mainloop()
 
 if __name__ == "__main__":
