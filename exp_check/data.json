@@ -1,22 +1,26 @@
 {
     "food data": {
-        "adfads": {
-            "date added": "180911",
-            "expiration date": "180912"
+        "Beans": {
+            "date added": "180913",
+            "expiration date": "180930"
         },
-        "sdfgsdfg": {
-            "date added": "180911",
-            "expiration date": "180921"
+        "Beetle Juice": {
+            "date added": "180914",
+            "expiration date": "181026"
         },
-        "xvcb": {
+        "Corn": {
+            "date added": "180915",
+            "expiration date": "181123"
+        },
+        "Kentucky Fried Chicken": {
             "date added": "180911",
-            "expiration date": "180913"
+            "expiration date": "190125"
         }
     },
     "key list": [
         "date added",
         "expiration date"
     ],
-    "last read date/time": "1809111825",
-    "last write date/time": "1809111824"
+    "last read date/time": "1809111956",
+    "last write date/time": "1809111955"
 }
