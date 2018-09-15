@@ -4,6 +4,8 @@
 file   : exp_check/data_manager.py
 author : Mark Redd
 
+Description:
+    A class for managing json data for the food database.
 """
 import json
 import datetime
@@ -19,11 +21,16 @@ class DataManager():
     def load_data(self):
         """
         Loads the data from the data file then writes the read time and saves
-        it to the file.
+        it to the file. If the datafile cannot be found or is corrupted it
+        makes a new datafile.
         """
-        with open(self.data_path, 'r') as f:
-            self.raw_data = json.load(f)
-        
+        try:
+            with open(self.data_path, 'r') as f:
+                self.raw_data = json.load(f)
+        except:
+            self.raw_data = empty_database
+            self.save_data()
+
         read_time = self.get_current_datetime()
         self.raw_data["last read date/time"] = self.get_current_datetime()
         

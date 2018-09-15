@@ -4,10 +4,14 @@
 file   : exp_check/add_food_gui.py
 author : Mark Redd
 
+Description:
+    A screen that depends on the ExpCheckGUI class and implements the widgets
+    for the add food screen.    
 """
 from tkinter import Button, Entry, Label, END, N, W, E
 from data_manager import DataManager
 from ttkcalendar import Calendar
+from constants import widget_options
 
 
 class AddFoodGUI():
@@ -16,13 +20,8 @@ class AddFoodGUI():
         self.init_gui()
     
     
-    def init_gui(self):
-        
-        widget_options = {
-            "background"     : "black",
-            "foreground"     : "white"
-            }           
-        # setup widgets
+    def init_gui(self):          
+
         self.add_button    = Button(self.parent, text="Add Food", 
                                     **widget_options, command=self.add_food)
         self.cancel_button = Button(self.parent, text="Cancel", 
@@ -82,14 +81,3 @@ class AddFoodGUI():
     def cancel(self, event=None):
         self.un_grid_widgets()
         self.parent.grid_widgets()
-
-    
-def main():
-    data_manager = DataManager("./data.json")
-    gui = ExpCheckGUI(data_manager)
-    gui.geometry("450x250+200+200")
-    gui.mainloop()
-
-if __name__ == "__main__":
-    main()
-

@@ -4,8 +4,12 @@
 file   : exp_check/data_display_mod.py
 author : Mark Redd
 
+Description:
+    A modified version of Frame from tkinter that implements 3 listboxes for 
+    displaying data.
 """
 from tkinter import Frame, Listbox, N, S, E, W, END, Label
+
 
 class DataDisplay(Frame):
     def __init__(self, widget_options):
@@ -14,6 +18,12 @@ class DataDisplay(Frame):
         self.init_gui()
         
     def init_gui(self):
+        self.columnconfigure(0, weight=3)
+        self.columnconfigure(1, weight=2)
+        self.columnconfigure(2, weight=2)
+        
+        self.rowconfigure(  1, weight=1)
+        
         self.names      = Listbox(self, **self.widget_options)
         self.date_added = Listbox(self, **self.widget_options)
         self.expdate    = Listbox(self, **self.widget_options)

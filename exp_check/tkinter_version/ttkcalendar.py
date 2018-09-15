@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 """
 Simple calendar using ttk Treeview together with calendar and datetime
 classes.
