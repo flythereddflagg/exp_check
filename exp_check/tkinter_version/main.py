@@ -10,13 +10,14 @@ Description:
 """
 from food_gui import ExpCheckGUI
 from data_manager import DataManager
-from constants import food_data_path, gui_shape_pos
+from constants import food_data_path, gui_shape_pos, icon_path
 
 
 def main():
     data_manager = DataManager(food_data_path)
     gui = ExpCheckGUI(data_manager)
     gui.geometry(gui_shape_pos)
+    gui.iconbitmap(icon_path)
     gui.mainloop()
 
 

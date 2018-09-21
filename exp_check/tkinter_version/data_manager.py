@@ -9,9 +9,10 @@ Description:
 """
 import json
 import datetime
+from constants import empty_database
 
 
-class DataManager():               
+class DataManager():
     
     def __init__(self, data_path):
         self.data_path = data_path

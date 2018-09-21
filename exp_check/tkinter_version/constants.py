@@ -9,6 +9,7 @@ Description:
 """
 
 food_data_path = "./food_data.json"
+icon_path = "./exp_check.ico"
 
 gui_shape_pos  = "475x250+200+200"
 

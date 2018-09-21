@@ -1,15 +1,10 @@
 {
     "_warning": "DO NOT MODIFY THIS FILE",
-    "food data": {
-        "goo": {
-            "date added": "180914",
-            "expiration date": "180913"
-        }
-    },
+    "food data": {},
     "key list": [
         "date added",
         "expiration date"
     ],
-    "last read date/time": "1809141844",
-    "last write date/time": "1809141844"
+    "last read date/time": "1809211623",
+    "last write date/time": "1809211514"
 }
