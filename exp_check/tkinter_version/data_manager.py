@@ -104,7 +104,7 @@ class DataManager():
         """
         @returns the food database as a string
         """
-        out = "{:^40} {:^10} {:^10}\n".format("Food","Added","Expires")
+        out = "{:^40} {:^10} {:^10}\n".format("Food Name","Added","Expires")
         for name in self.raw_data["food data"].keys():
         
             out += "{:^40} {:^10} {:^10}\n".format(
@@ -168,7 +168,7 @@ class DataManager():
         
 def main():
     '''Driver test code'''
-    dm = DataManager("./data.json")
+    dm = DataManager("./junk.json")
     print("--- init")
     print(dm.to_string())
     

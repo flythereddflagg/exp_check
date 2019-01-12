@@ -1,19 +1,15 @@
 {
     "_warning": "DO NOT MODIFY THIS FILE",
     "food data": {
-        "adsfasf": {
-            "date added": "181027",
-            "expiration date": "181020"
-        },
-        "dsfgb": {
-            "date added": "190107",
-            "expiration date": "190110"
+        "Corn": {
+            "date added": "190111",
+            "expiration date": "190323"
         }
     },
     "key list": [
         "date added",
         "expiration date"
     ],
-    "last read date/time": "1901071843",
-    "last write date/time": "1901071832"
+    "last read date/time": "1901111947",
+    "last write date/time": "1901111946"
 }
