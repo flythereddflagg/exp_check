@@ -65,7 +65,7 @@ class AddFoodGUI():
         
         date_obj = self.date_picker.selection
         if name == "" or date_obj is None:
-            self.parent.msg_box_init(self,"Please Select a name and a date")
+            self.parent.msg_box_init(self, "Please Select a name and a date")
             return
         
         self.name_box.delete(0,END)
