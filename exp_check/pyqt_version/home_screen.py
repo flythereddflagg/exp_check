@@ -1,7 +1,7 @@
 from constants import *
 
 
-class AddScreen(QWidget):
+class HomeScreen(QWidget):
     def __init__(self, master, parent=None):
         super().__init__(parent)
         self.master = master
@@ -19,7 +19,7 @@ class AddScreen(QWidget):
     
     
     def init_widgets(self):
-        layout_info = LAYOUT_INFO["add screen"]
+        layout_info = LAYOUT_INFO['home screen']
 
         for key, val in layout_info.items():
             self.widgets[key] = WIDGET_DICT[val['type']](*val['init'])
@@ -32,16 +32,21 @@ class AddScreen(QWidget):
     
     
     def more_setup(self):
+        self.widgets["data table"].setHorizontalHeaderLabels(
+            ["Food Name","Date Added","Exp Date"])
+        self.widgets["data table"].setEditTriggers(
+            QTableWidget.NoEditTriggers)
         self.widgets["add button"].clicked.connect(
             self.add_food)
         self.widgets["delete button"].clicked.connect(
-            self.cancel_add_food)
+            self.delete_food)
     
 
     def add_food(self):
-        self.cancel_add_food()
+        self.master.stack.setCurrentIndex(1)
 
 
-    def cancel_add_food(self):
-        self.master.stack.setCurrentIndex(0)
-        
+    def delete_food(self):
+        print("DELETED FOOD!")
+
+

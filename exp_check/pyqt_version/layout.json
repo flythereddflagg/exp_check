@@ -1,5 +1,5 @@
 {
-    "home": {
+    "home screen": {
         "data table" : {
             "type" : "table",
             "init" : [1, 3],
@@ -16,16 +16,31 @@
             "grid" : [0, 1, 1, 1]
         }
     },
-    "add": {
+    "add screen": {
         "add button" : {
             "type" : "button",
             "init" : ["Add Food"],
-            "grid" : [0, 0, 1, 1]
+            "grid" : [0, 0, 1, 2]
         },
         "delete button" : {
             "type" : "button",
             "init" : ["Cancel"],
-            "grid" : [0, 1, 1, 1]
+            "grid" : [0, 2, 1, 2]
+        },
+        "calendar" : {
+            "type" : "calendar",
+            "init" : [],
+            "grid" : [2, 0, 2, 4]
+        },
+        "food name label" : {
+            "type" : "label",
+            "init" : ["Food Name:"],
+            "grid" : [1, 0, 1, 1]
+        },
+        "food name" : {
+            "type" : "entry",
+            "init" : [],
+            "grid" : [1, 1, 1, 3]
         }
     }
 }
