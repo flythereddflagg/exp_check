@@ -5,12 +5,12 @@ CFLAGS = --interpreter /usr/bin/python3 --verbose --target android
 CONFIG = app_build.pdy
 
 all: download
-	pyqtdeploy-sysroot --verbose ./sysroot_options.json
+	pyqtdeploy-sysroot --verbose ./qt_config.json
 	$(PYCC) $(CONFIG) $(CFLAGS)
 
 download:
 ifeq (,$(wildcard ./*tar*))
-    ./download.sh
+	./download.sh
 endif
 
 .PHONY: clean
