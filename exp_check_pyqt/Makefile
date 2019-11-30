@@ -11,12 +11,12 @@ QT_MAJOR_VERSION = 5.12
 QT_MINOR_VERSION = .2
 PYQT5_VERSION = 5.12.1
 
-all: download sysroot build
+all: paths download sysroot build
 
 paths:
 	export ANDROID_NDK_ROOT=$HOME/Android/NDK/android-ndk-r20b
 	export ANDROID_SDK_ROOT=$HOME/Android/Sdk
-	export ANDROID_NDK_PLATFORM=android-24
+	export ANDROID_NDK_PLATFORM=android-29
 
 sysroot:
 	pyqtdeploy-sysroot $(CFLAGS) ./config/qt_config.json
