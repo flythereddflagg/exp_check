@@ -1,35 +1,12 @@
 from constants import *
+from base_screen import BaseScreen
 
 
-class AddScreen(QWidget):
+class AddScreen(BaseScreen):
     def __init__(self, master, parent=None):
-        super().__init__(parent)
-        self.master = master
-        self.widgets = {}
-        self.grid_places = {}
-        self.setup_widgets()
+        self.id = "add screen"
+        super().__init__(master, parent)
 
-
-    def setup_widgets(self):
-        self.main_layout = QGridLayout()
-        self.init_widgets()
-        self.grid_widgets()
-        self.more_setup()
-        self.setLayout(self.main_layout)
-    
-    
-    def init_widgets(self):
-        layout_info = LAYOUT_INFO["add screen"]
-
-        for key, val in layout_info.items():
-            self.widgets[key] = WIDGET_DICT[val['type']](*val['init'])
-            self.grid_places[key] = val['grid']
-    
-
-    def grid_widgets(self):
-        for key, val in self.grid_places.items():
-            self.main_layout.addWidget(self.widgets[key], *val)
-    
     
     def more_setup(self):
         self.widgets["add button"].clicked.connect(
@@ -39,9 +16,14 @@ class AddScreen(QWidget):
     
 
     def add_food(self):
+        if self.widgets['food name'].text() == "":
+            self.master.stack.setCurrentIndex(
+                self.master.msg_screen_index)
+            return
         self.cancel_add_food()
 
 
     def cancel_add_food(self):
-        self.master.stack.setCurrentIndex(0)
+        self.master.stack.setCurrentIndex(
+            self.master.home_screen_index)
         

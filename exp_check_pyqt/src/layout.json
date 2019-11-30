@@ -42,5 +42,17 @@
             "init" : [],
             "grid" : [1, 1, 1, 3]
         }
+    },
+    "msg screen": {
+        "ok button" : {
+            "type" : "button",
+            "init" : ["OK"],
+            "grid" : [0, 0, 1, 2]
+        },
+        "message label" : {
+            "type" : "label",
+            "init" : ["Here is a message!"],
+            "grid" : [1, 0, 1, 1]
+        }
     }
 }
