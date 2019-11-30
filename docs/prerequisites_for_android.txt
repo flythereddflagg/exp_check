@@ -1,0 +1,11 @@
+# prerequisites for android
+- PyQt5 via pip
+- pyqtdeploy via pip
+- Qt installed at ~/Qt/
+- android studio
+- NDK for the version of android you wish installed at ~/Android/NDK
+- The following exports:
+    export ANDROID_NDK_ROOT=$HOME/Android/NDK/android-ndk-r20b
+    export ANDROID_SDK_ROOT=$HOME/Android/Sdk
+    export ANDROID_NDK_PLATFORM=android-<VERSION NUMBER>
+
