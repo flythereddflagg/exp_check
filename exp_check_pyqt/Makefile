@@ -39,5 +39,6 @@ clean:
 	rm -rf ./build*
 
 
+.PHONY: clean_download
 clean_download:
 	rm -f *tar*
