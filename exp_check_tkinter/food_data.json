@@ -1,19 +1,10 @@
 {
     "_warning": "DO NOT MODIFY THIS FILE",
-    "food data": {
-        "pickles": {
-            "date added": "191115",
-            "expiration date": "200327"
-        },
-        "squeaky cheese": {
-            "date added": "191115",
-            "expiration date": "200220"
-        }
-    },
+    "food data": {},
     "key list": [
         "date added",
         "expiration date"
     ],
-    "last read date/time": "1911230930",
-    "last write date/time": "1911151056"
+    "last read date/time": "2007191000",
+    "last write date/time": "2007191000"
 }

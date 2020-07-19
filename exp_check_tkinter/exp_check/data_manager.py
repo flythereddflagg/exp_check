@@ -9,7 +9,7 @@ Description:
 """
 import json
 import datetime
-from constants import empty_database
+from exp_check.constants import empty_database
 
 
 class DataManager():
@@ -151,7 +151,7 @@ class DataManager():
         if sort_key is not None:
             name_ind = 0
             database.sort(key=lambda x: x[name_ind])
-            if sort_key is not 'name':
+            if sort_key != 'name':
                 key_ind = key_list.index(sort_key) + 1
                 database.sort(key=lambda x: int(x[key_ind]))
         

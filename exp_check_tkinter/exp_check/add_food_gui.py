@@ -9,9 +9,9 @@ Description:
     for the add food screen.    
 """
 from tkinter import Button, Entry, Label, END, N, W, E
-from data_manager import DataManager
-from ttkcalendar import Calendar
-from constants import widget_options
+from exp_check.data_manager import DataManager
+from exp_check.ttkcalendar import Calendar
+from exp_check.constants import widget_options
 
 
 class AddFoodGUI():

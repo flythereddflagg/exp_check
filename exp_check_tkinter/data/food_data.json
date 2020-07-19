@@ -1,0 +1,19 @@
+{
+    "_warning": "DO NOT MODIFY THIS FILE",
+    "food data": {
+        "adsfs": {
+            "date added": "200719",
+            "expiration date": "201113"
+        },
+        "squeaky cheese": {
+            "date added": "191115",
+            "expiration date": "200220"
+        }
+    },
+    "key list": [
+        "date added",
+        "expiration date"
+    ],
+    "last read date/time": "2007191002",
+    "last write date/time": "2007191003"
+}
