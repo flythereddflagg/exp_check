@@ -10,8 +10,9 @@ soon.
 author: Mark Redd
 last modified: 190111
 """
-from constants import food_data_path
-from data_manager import DataManager
+from exp_check.constants import food_data_path
+from exp_check.data_manager import DataManager
+import tkinter as tk
 from tkinter.messagebox import showinfo
 from datetime import date, timedelta
 
@@ -77,6 +78,7 @@ def main():
     exp_message = f"{exp_text}{warn_30}"
     
     if exp_message:
+        tk.Tk().withdraw()
         showinfo("Expiration Information", exp_message)
     
     
