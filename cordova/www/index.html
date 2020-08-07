@@ -5,26 +5,106 @@
 	<title>Exp Check</title>
 </head>
 <body>
-
 	<h1>Exp Check</h1>
-	<button>Click me</button>
-
-	<table id="table121">
-		<tr>
-			<td>Cheese</td><td>20201113</td><td>20201213</td>
-		</tr>
-		</tr>
+	<button id="clear data button">Clear Data</button> <br>
+	<button id="add food button">Add Food</button>
+	<button id="delete food button">Delete Food</button>
+	<label for="search bar">Search: </label>
+	<input type="text" id="search bar"><br>
+	<table id="food data table">
+		<thead>
+			<tr>
+				<th>Food Name</th>
+				<th>Date Added</th>
+				<th>Expiration Date</th>
+			</tr>
+		</thead>
+		<tbody id="food data"> </tbody>
 	</table>
 </body>
 <script>
-document.getElementById('table121').onclick = table_on_click
+// always name, date_added, exp_date
+var table = document.getElementById("food data");
 
-function table_on_click() 
+function clear_data()
 {
-  var tbl_ptr = document.getElementById('table121'); 
-  console.log(tbl_ptr);
-  tbl_ptr.insertRow(0)
-  tbl_ptr.rows[0].innerHTML += "<td>" + "Pickle" + "</td>";
+	confirm("Are you sure you want to clear all of your data?")
+	// localStorage.clear();
+	write_data("food_data", "");
+	init_data();
+	load_data();
 }
+
+function print(...stuff){console.log(...stuff);}
+
+function write_data(field, data)
+{
+	localStorage.setItem(field, data);
+	localStorage.setItem("last_write", Date.now().toString());
+}
+
+function read_data(field)
+{
+	var data = localStorage.getItem(field);
+	localStorage.setItem("last_read", Date.now().toString());
+	return data;
+}
+
+function init_data(){
+	if (read_data("food_data") == undefined){
+		write_data("food_data", "");
+	}
+}
+
+function add_row_to_table(name, added, exp)
+{
+	var new_cells = [name, added, exp];
+	var row = table.insertRow(-1);
+	
+	for (value of new_cells){
+		var cell = row.insertCell(-1);
+		cell.innerHTML = value
+	}
+}
+
+function load_data()
+{
+	table.innerHTML = "";
+	var data_str = read_data("food_data");
+	var rows = data_str.split(";");
+	for (row of rows){
+		if (!row) continue;
+		cells = row.split(',');
+		add_row_to_table(...cells);
+	}
+	print(localStorage);
+}
+
+function save_new_row(name, added, exp)
+{
+	var new_cells = [name, added, exp];
+	var food_data = read_data("food_data");
+	food_data += new_cells.join(',') + ";";
+	write_data("food_data", food_data);
+}
+
+function add_food(name, added, exp)
+{
+	save_new_row(name, added, exp);
+	load_data();
+}
+
+function init()
+{
+	// document.getElementById("food data table").onclick = table_on_click;
+	document.getElementById("clear data button").onclick = clear_data;
+
+	init_data();
+	load_data();
+	
+	add_food('cheese', '2020/07/08', '2020/07/09');
+}
+
+init();
 </script>
 </html>
