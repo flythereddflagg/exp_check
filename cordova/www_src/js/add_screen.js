@@ -11,8 +11,12 @@ function confirm_add_food()
 {
 	save_new_row(
 		document.getElementById("name").value,
-		Date().toString(),
-		document.getElementById("date").value,
+		Date.now().toString(),
+		[
+			document.getElementById("month").value,
+			document.getElementById("day").value,
+			document.getElementById("year").value,
+		].join("/")		
 	);
 	goto_home_screen();
 }
