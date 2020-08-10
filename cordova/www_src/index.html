@@ -2,15 +2,38 @@
 <html>
 <head>
 	<meta charset="utf-8">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="msapplication-tap-highlight" content="no">
+	<meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+	<meta name="color-scheme" content="light dark">
+
 	<title>Exp Check</title>
+	
+	<link rel="stylesheet" href="css/global.css">
+	<link rel="stylesheet" href="css/index.css">
+	<link rel="stylesheet" href="css/toast.css">
 </head>
 <body>
 	<h1>Exp Check</h1>
-	<button id="clear data button">Clear Data</button> <br>
-	<button id="add food button">Add Food</button>
-	<button id="delete food button">Delete Food</button>
+
+	<!-- The actual snackbar -->
+	<div id="toast">Error:</div>
+
+	<div class="buttons">
+		<button id="clear data button">Clear Data</button>
+		<button id="add food button">Add Food</button>
+		<button id="delete food button">Delete Food</button> <br>
+	</div>
 	<label for="search bar">Search: </label>
 	<input type="text" id="search bar"><br>
+	<label for="sorter">Sort By: </label>
+	<select id="sorter">
+		<option value="food name">Food Name</option>
+		<option value="add date">Date Added</option>
+		<option value="exp date">Expiration Date</option>
+	  </select><br>
+
 	<table id="food data table">
 		<thead>
 			<tr>
