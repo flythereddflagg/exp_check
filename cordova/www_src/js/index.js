@@ -115,8 +115,8 @@ function sort_by()
 
 function init()
 {
-	document.getElementById("clear data button").onclick = clear_data;
-	document.getElementById("add food button").onclick = goto_add_screen;
+	document.getElementById("clear_data_button").onclick = clear_data;
+	document.getElementById("add_food_button").onclick = goto_add_screen;
 	document.getElementById("delete food button").onclick = delete_food;
 	document.getElementById("sorter").onchange = sort_by;
 	document.getElementById("search bar").oninput = search_for;
