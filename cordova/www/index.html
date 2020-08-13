@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="css/global.css">
 	<link rel="stylesheet" href="css/index.css">
 	<link rel="stylesheet" href="css/toast.css">
+	<link rel="stylesheet" href="css/dropdown.css">
 </head>
 <body>
 	<h1>Exp Check</h1>
@@ -30,6 +31,16 @@
 		<button id="delete food button">Delete</button>
 		<button id="clear_data_button">Clear Data</button>
 	</div>
+
+	<div class="dropdown">
+	<button id="drp1" class="dropbtn">Dropdown</button>
+		<div id="myDropdown" class="dropdown-content">
+		<a href="#">Link 1</a>
+		<a href="#">Link 2</a>
+		<a href="#">Link 3</a>
+		</div>
+	</div>
+	
 	<label for="search bar"><img class="icon" src="img/search_icon.png"></label>
 	<input type="text" id="search bar"><br>
 	<label for="sorter">Sort By: </label>
@@ -51,4 +62,5 @@
 	</table>
 </body>
 <script type="module" src="js/index.js"></script>
+<script type="module" src="js/dropdown.js"></script>
 </html>

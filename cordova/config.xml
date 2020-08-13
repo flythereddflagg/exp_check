@@ -8,7 +8,10 @@
     <description>
         Keep track of your food storage expiration. Never throw away expired food again!
     </description>
-    <author email="redddogjr@gmail.com" href="http://flythereddflagg.github.io">
+    <author 
+        email="redddogjr@gmail.com" 
+        href="http://flythereddflagg.github.io"
+    >
         Mark Edward Redd
     </author>
     <content src="index.html" />
