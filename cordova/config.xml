@@ -1,11 +1,15 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.cordova.hellocordova" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>HelloCordova</name>
+<widget 
+        id="io.github.flythereddflagg.exp_check" 
+        version="1.0.0" 
+        xmlns="http://www.w3.org/ns/widgets" 
+        xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Exp Check</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        Keep track of your food storage expiration. Never throw away expired food again!
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="redddogjr@gmail.com" href="http://flythereddflagg.github.io">
+        Mark Edward Redd
     </author>
     <content src="index.html" />
     <access origin="*" />

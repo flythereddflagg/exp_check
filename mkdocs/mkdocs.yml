@@ -2,8 +2,7 @@ site_name: Exp Check
 
 theme: material
 
-nav:
-    - Home : './index.md'
+
     # - About the Lab : './About the lab.md'
     # - Collaborations : './Publications.md'
     # - Staff : './Staff.md'

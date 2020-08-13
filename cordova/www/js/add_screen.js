@@ -1,19 +1,19 @@
-import { print , write_data, read_data, save_new_row , get_now} from "./data_manager.js";
-
-const index = "./index.html";
+import {HOME_SCREEN, save_new_row, get_today, error_msg} from "./tools_consts.js";
 
 function goto_home_screen()
 {
-	window.location.assign(index); 
+	window.location.assign(HOME_SCREEN); 
 }
 
 function confirm_add_food()
 {
-	save_new_row(
-		document.getElementById("name").value,
-		Date().toString(),
-		document.getElementById("date").value,
-	);
+	var name = document.getElementById("name").value;
+	var date = document.getElementById("date").value;
+	if (!name || !date){
+		error_msg("You must specify a name and a date.");
+		return;
+	}
+	save_new_row(name, get_today(), date);
 	goto_home_screen();
 }
 
@@ -27,7 +27,6 @@ function add_screen_init()
 	document.getElementById("confirm button").onclick = confirm_add_food;
 	document.getElementById("cancel add button").onclick = goto_home_screen;
 	console.log(localStorage);
-	get_now()
 }
 
 add_screen_init();
