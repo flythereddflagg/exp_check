@@ -1,12 +1,17 @@
 /* Dropdown Button */
 .dropbtn {
-background-color: #3498DB;
+background-color: rgba(0, 0, 0, 0);
 color: white;
 padding: 16px;
 font-size: 16px;
 border: none;
 cursor: pointer;
-}
+position: relative;
+left: 100%;
+background-image: radial-gradient(circle, white 20%, transparent 21%);
+background-size: 100% 33.33%;
+/* top: 5px;
+ */}
 
 /* Dropdown button on hover & focus */
 .dropbtn:hover, .dropbtn:focus {

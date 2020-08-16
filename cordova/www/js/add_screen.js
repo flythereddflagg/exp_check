@@ -1,4 +1,9 @@
-import {HOME_SCREEN, save_new_row, get_today, error_msg} from "./tools_consts.js";
+import {
+	HOME_SCREEN, 
+	save_new_row, 
+	get_today, 
+	error_msg
+} from "./tools_consts.js";
 
 function goto_home_screen()
 {

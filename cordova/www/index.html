@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
-	<meta name="format-detection" content="telephone=no">
+	<meta name="format-detection" content="telephone=yes">
 	<meta name="msapplication-tap-highlight" content="no">
 	<meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
 	<meta name="color-scheme" content="light dark">
@@ -16,30 +16,70 @@
 	<link rel="stylesheet" href="css/dropdown.css">
 </head>
 <body>
-	<h1>Exp Check</h1>
+	<!-- <h1>Exp Check</h1> -->
 
 	<!-- The actual snackbar -->
 	<div id="toast">Error:</div>
 
 	<div class="buttons">
-		
 		<button id="add_food_button">
-			<img 
-				class="icon" 
-				src="img/icon_add.svg"
-			></img></button>
-		<button id="delete food button">Delete</button>
+			<svg class="icon  icon--plus" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+				<path 
+					d="
+						M  30 00
+						h  20 
+						v  30 
+						h  30 
+						v  20 
+						h -30 
+						v  30 
+						h -20 
+						v -30 
+						h -30 
+						v -20 
+						h  30 
+						z
+					" 
+					fill="white" 
+				></path>
+			</svg> Add
+		</button>
+		<button id="delete food button">
+					<svg class="icon  icon--x" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+				<path 
+					d="
+						M  00  20
+						L  20  00
+						L  50  30
+						L  80  00
+						L 100  20
+						L  70  50
+						L 100  80
+						L  80 100
+						L  50  70
+						L  20 100
+						L  00  80
+						L  30  50
+						L  00  20
+						Z
+					" 
+					fill="white" 
+				></path>
+			</svg>
+			Delete
+		</button>
 		<button id="clear_data_button">Clear Data</button>
-	</div>
-
 	<div class="dropdown">
-	<button id="drp1" class="dropbtn">Dropdown</button>
+	<button id="drp1" class="dropbtn"></button>
 		<div id="myDropdown" class="dropdown-content">
-		<a href="#">Link 1</a>
-		<a href="#">Link 2</a>
-		<a href="#">Link 3</a>
+		<a href="#">Add</a>
+		<a href="#">Delete</a>
+		<a href="#">Clear Data</a>
 		</div>
 	</div>
+	</div>
+
+
 	
 	<label for="search bar"><img class="icon" src="img/search_icon.png"></label>
 	<input type="text" id="search bar"><br>

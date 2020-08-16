@@ -27,16 +27,16 @@ You will need the following environment variables in your system:
 
 | Variable           | Value                                |
 | ------------------ | ------------------------------------ |
-| `ANDROID_AVD_HOME` | `C:\.android\avd`                    |
-| `ANDROID_SDK_ROOT` | `C:\.android`                        |
+| `ANDROID_AVD_HOME` | `C:\.android\avd` or equivalent path |
+| `ANDROID_SDK_ROOT` | `C:\.android` or equivalent path     |
 | `JAVA_HOME`        | `<PATH TO YOUR JAVA 8 INSTALLATION>` |
 
 Then you will need the following values added to your `PATH` variable:
 
-| Path                                  |
-| ------------------------------------- |
-| `C:\.android\cmdline-tools\tools\bin` |
-| `C:\.android\emulator`                |
+| Path                                                     |
+| -------------------------------------------------------- |
+| `C:\.android\cmdline-tools\tools\bin` or equivalent path |
+| `C:\.android\emulator` or equivalent path                |
 
 Now would be a good time to restart your computer so that these changes take effect.
 
@@ -49,7 +49,7 @@ You may reference the [SDK Manager](https://developer.android.com/studio/command
 - a platform (you may see platforms with `sdkmanager --list`)
 - a system image (you may see system images with `sdkmanager --list`)
 
-Reference the help pages on the AVD Manager to make your emulator before starting it.
+Reference the help pages on the the [AVD Manager](https://developer.android.com/studio/command-line/avdmanager) to make your emulator **before** starting it.
 
 ## Start the Emulator
 
@@ -59,11 +59,9 @@ You may now start the emulator using the info on [this page](https://developer.a
 
 My config worked with the following options:
 
-- ```
-  sdkmanager.bat --list
-  PRODUCED:
-  Installed packages:=====================] 100% Computing updates...
-    Path                                        | Version | Description                                | Location         
+`sdkmanager.bat --list`
+
+Path                                        | Version | Description                                | Location         
     -------                                     | ------- | -------                                    | -------          
     emulator                                    | 30.0.12 | Android Emulator                           | emulator\        
     patcher;v4                                  | 1       | SDK Patch Applier v4                       | patcher\v4\      
@@ -72,14 +70,9 @@ My config worked with the following options:
     platforms;android-30                        | 3       | Android SDK Platform 30                    | platforms\android-30\
     system-images;android-29;google_apis;x86_64 | 10      | Google APIs Intel x86 Atom_64 System Image | system-images\android-29\google_apis\x86_64\
     system-images;android-30;google_apis;x86_64 | 7       | Google APIs Intel x86 Atom_64 System Image | system-images\android-30\google_apis\x86_64\
-  ```
 
-- ```
-  avdmanager.bat create avd -n tester_1 -k "system-images;android-30;google_apis;x86_64" -d 23
-  ```
+ 
 
-- ```
-  emulator.exe -avd tester_1
-  ```
+`avdmanager.bat create avd -n tester_1 -k "system-images;android-30;google_apis;x86_64" -d 23`
 
-  
+`emulator.exe -avd tester_1`

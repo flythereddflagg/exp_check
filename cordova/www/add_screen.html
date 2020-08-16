@@ -10,19 +10,57 @@
 	<link rel="stylesheet" href="css/toast.css">
 </head>
 <body>
-	<h1>Exp Check</h1>
+	<!-- <h1>Exp Check</h1> -->
 
 	<!-- The actual snackbar -->
 	<div id="toast">Error:</div>
 	<div class="buttons">
-	<button id="confirm button">Add Food</button>
-	<button id="cancel add button">Cancel</button><br>
+	<button id="cancel add button">
+		<svg class="icon" viewBox="0 0 70 100" xmlns="http://www.w3.org/2000/svg">
+			<path
+				d="
+					M  00  50
+					L  50 100
+					L  70  80
+					L  40  50
+					L  70  20
+					L  50  00
+					L  00  50
+					Z
+				"
+			fill="white"
+			/>
+		</svg> Back
+	</button>
+	<button id="confirm button">
+		<svg class="icon  icon--plus" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+			<path 
+				d="
+					M  30 00
+					h  20 
+					v  30 
+					h  30 
+					v  20 
+					h -30 
+					v  30 
+					h -20 
+					v -30 
+					h -30 
+					v -20 
+					h  30 
+					z
+				" 
+				fill="white" 
+			></path>
+		</svg> Add Food
+	</button>
+	
 	</div>
 	<label for="name">Food Name</label>
 	<input type="text" id="name"><br>
 	
-	<label for="date">Expiration Date</label>
-	<input type="text" id="date"><br>
+	<label for="date">Expiration Date</label><br>
+	<input type="text" id="date" style="{width : 99%;}">
 
 	<script src="js/datepicker.js"></script>
 	<script type="module" src="js/add_screen.js"></script>
