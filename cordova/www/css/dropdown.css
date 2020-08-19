@@ -2,14 +2,14 @@
 .dropbtn {
 background-color: rgba(0, 0, 0, 0);
 color: white;
-padding: 16px;
-font-size: 16px;
+/* padding: 16px;
+font-size: 16px; */
 border: none;
 cursor: pointer;
 position: relative;
 left: 100%;
-background-image: radial-gradient(circle, white 20%, transparent 21%);
-background-size: 100% 33.33%;
+/* background-image: radial-gradient(circle, white 20%, transparent 21%);
+background-size: 100% 33.33%; */
 /* top: 5px;
  */}
 

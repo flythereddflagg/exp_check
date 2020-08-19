@@ -23,6 +23,9 @@ h1 {
     width: 100%;
     font-family: inherit;
 }
+div {
+	display: flex-box;
+}
 
 .buttons {
     padding: 0.5%;
