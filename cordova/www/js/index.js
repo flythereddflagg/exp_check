@@ -1,11 +1,13 @@
 import {print, write_data, read_data, delete_row, error_msg} from "./tools_consts.js";
 
 // always name, date_added, exp_date
-var table = document.getElementById("food data");
+var table = document.getElementById("food_data");
 
 function clear_data()
 {
-	var yesno = confirm("Are you sure you want to clear all of your data?");
+	var yesno = confirm(
+		"Are you sure you want to clear all of your data?"
+	);
 	if (!yesno) return;
 	// localStorage.clear();
 	write_data("food_data", "");
@@ -15,10 +17,13 @@ function clear_data()
 
 function select_row(row)
 {
+	var select_it = row.className == "selected" ? false : true;
 	for (var row_ of table.rows){
 		if (row_.className == "selected") row_.className = "";
 	}
-	row.className = "selected";
+	if (select_it){
+		row.className = "selected";
+	}
 }
 
 function init_data(){
