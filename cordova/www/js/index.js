@@ -1,4 +1,4 @@
-import {print, write_data, read_data, delete_row, error_msg} from "./tools_consts.js";
+import {printc, write_data, read_data, delete_row, error_msg} from "./tools_consts.js";
 
 // always name, date_added, exp_date
 var table = document.getElementById("food_data");
@@ -50,9 +50,10 @@ function add_row_to_table(name, added, exp)
 
 function load_data()
 {
-	var search_str = document.getElementById("search bar").value;
+	var search_str = document.getElementById("search_bar").value;
 	table.innerHTML = "";
 	var data_str = read_data("food_data");
+	var rows = data_str.split(";");
 	var rows = data_str.split(";");
 	for (var row of rows){
 		if (search_str && !row.includes(search_str)) continue;
@@ -60,12 +61,12 @@ function load_data()
 		var cells = row.split(',');
 		add_row_to_table(...cells);
 	}
-	// print(localStorage);
+	// printc(localStorage);
 }
 
 function search_for()
 {
-	print("Searching...");
+	printc("Searching...");
 	load_data();
 }
 
@@ -117,6 +118,14 @@ function sort_by()
 	load_data();
 }
 
+function toggle_show_menu()
+{
+	var menu = document.getElementsByClassName("menu_content");
+	if (menu.classList.contains("show")){
+		menu.classList.remove("show");
+	}
+	else menu.classList.add("show");
+}
 
 function init()
 {
@@ -124,10 +133,13 @@ function init()
 	document.getElementById("add_food_button").onclick = goto_add_screen;
 	document.getElementById("delete food button").onclick = delete_food;
 	document.getElementById("sorter").onchange = sort_by;
-	document.getElementById("search bar").oninput = search_for;
+	document.getElementById("search_bar").oninput = search_for;
+	document.getElementById("menu").onclick = toggle_show_menu;
+	
 
 	init_data();
 	load_data();
+	printc("init done");
 }
 
 init();

@@ -15,7 +15,9 @@
 	<link rel="stylesheet" href="css/toast.css">
 </head>
 <body>
+
 	<div id="toast">Error:</div>
+	
 	<div class="buttons">
 		<button id="add_food_button">
 			<img class="icon icon--plus" src="img/plus_icon.svg"/>
@@ -29,12 +31,19 @@
 		<button id="menu" class="drop_down">
 			<img class="icon  icon--x" src="img/menu_icon.svg"/>
 		</button>
+		<div class="menu_content">
+			<a id="m_add_food">Add Food</a>
+			<a id="m_delete_food">Delete Food</a>
+			<a id="m_clear_data">Clear Data</a>
+		</div>
 	</div>
-	<label for="search bar">
-		<img class="icon" src="img/search_icon.png">
-	</label>
-	<input type="text" id="search bar"><br>
-	<label for="sorter">Sort By: </label>
+		<label for="search bar">
+			<img class="icon" src="img/search_icon.png">
+		</label>
+	<input type="text" id="search_bar"><br>
+
+
+	<label for="sorter">Sort by: </label>
 	<select id="sorter">
 		<option value="food name">Food Name</option>
 		<option value="add date">Date Added</option>
@@ -51,6 +60,7 @@
 		</thead>
 		<tbody id="food_data"> </tbody>
 	</table>
+	
 </body>
 <script type="module" src="js/index.js"></script>
 </html>

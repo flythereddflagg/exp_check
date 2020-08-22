@@ -31,7 +31,7 @@ function add_screen_init()
 	}});
 	document.getElementById("confirm button").onclick = confirm_add_food;
 	document.getElementById("cancel add button").onclick = goto_home_screen;
-	console.log(localStorage);
+	/* console.log(localStorage); */
 }
 
 add_screen_init();

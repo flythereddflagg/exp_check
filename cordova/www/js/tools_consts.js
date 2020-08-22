@@ -6,7 +6,7 @@ function get_now()
 
 // consts
 export const HOME_SCREEN = "./index.html";
-const SUPPRESS_OUTPUT = true;
+const SUPPRESS_OUTPUT = false;
 
 
 export function get_today()
@@ -15,7 +15,7 @@ export function get_today()
 	return new Date().toLocaleDateString('en-US', options);
 }
 
-export function print(...stuff)
+export function printc(...stuff)
 {
 	if (!SUPPRESS_OUTPUT) console.log("[APP]", ...stuff)
 };
@@ -49,9 +49,9 @@ export function delete_row(del_row_str)
 	var food_data = read_data("food_data");
 	var to_write = [];
 	for(var row of food_data.split(";")){
-		print(row, del_row_str, ";")
+		printc(row, del_row_str, ";")
 		if (row == del_row_str) {
-			print("Deleting row", row)
+			printc("Deleting row", row)
 			continue;
 		}
 		to_write.push(row);
