@@ -120,11 +120,23 @@ function sort_by()
 
 function toggle_show_menu()
 {
-	var menu = document.getElementsByClassName("menu_content");
-	if (menu.classList.contains("show")){
-		menu.classList.remove("show");
+	/* document.getElementById("menu_list").classList.toggle("show");
+	*/document.getElementById("myDropdown").classList.toggle("show");
+}
+
+
+window.onclick = function(event) {
+	// Close the dropdown menu if the user clicks outside of it
+	if (!event.target.matches('.dropbtn')) {
+		var dropdowns = document.getElementsByClassName("dropdown-content");
+		var i;
+		for (i = 0; i < dropdowns.length; i++) {
+			var openDropdown = dropdowns[i];
+			if (openDropdown.classList.contains('show')) {
+				openDropdown.classList.remove('show');
+			}
+		}
 	}
-	else menu.classList.add("show");
 }
 
 function init()
@@ -135,12 +147,12 @@ function init()
 	document.getElementById("sorter").onchange = sort_by;
 	document.getElementById("search_bar").oninput = search_for;
 	document.getElementById("menu").onclick = toggle_show_menu;
+	document.getElementById("m_add_food").onclick = goto_add_screen;
+	document.getElementById("m_delete_food").onclick = delete_food;
+	document.getElementById("m_clear_data").onclick = clear_data;
 	
-
 	init_data();
 	load_data();
-	printc("init done");
 }
 
 init();
-
