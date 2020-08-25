@@ -120,12 +120,11 @@ function sort_by()
 
 function toggle_show_menu()
 {
-	/* document.getElementById("menu_list").classList.toggle("show");
-	*/document.getElementById("myDropdown").classList.toggle("show");
+	document.getElementById("myDropdown").classList.toggle("show");
 }
 
-
-window.onclick = function(event) {
+function unshow_menu(event) 
+{
 	// Close the dropdown menu if the user clicks outside of it
 	if (!event.target.matches('.dropbtn')) {
 		var dropdowns = document.getElementsByClassName("dropdown-content");
@@ -139,20 +138,44 @@ window.onclick = function(event) {
 	}
 }
 
+function check_dates()
+{
+	printc("Checking dates...");
+	var message = "The following foods will expire soon:\n";
+	navigator.notification.alert(
+		message, 
+		function () {}, 
+		"Exp Check - Date Checker", 
+	)
+}
+
+function onDeviceReady() 
+{
+	document.getElementById("m_check_dates").onclick = check_dates;
+	printc("Device Ready");
+}
+
+
 function init()
 {
+	// setup all the UI behavior
 	document.getElementById("clear_data_button").onclick = clear_data;
 	document.getElementById("add_food_button").onclick = goto_add_screen;
 	document.getElementById("delete food button").onclick = delete_food;
 	document.getElementById("sorter").onchange = sort_by;
 	document.getElementById("search_bar").oninput = search_for;
 	document.getElementById("menu").onclick = toggle_show_menu;
+	window.onclick = unshow_menu;
 	document.getElementById("m_add_food").onclick = goto_add_screen;
 	document.getElementById("m_delete_food").onclick = delete_food;
 	document.getElementById("m_clear_data").onclick = clear_data;
 	
+	// init and load data
 	init_data();
 	load_data();
+	
+	// load stuff needed for system (app external) actions
+	document.addEventListener("deviceready", onDeviceReady, false);
 }
 
-init();
+/* init(); */

@@ -2,19 +2,23 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+	<meta http-equiv="Content-Security-Policy" content="script-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
 	<meta name="format-detection" content="telephone=yes">
 	<meta name="msapplication-tap-highlight" content="no">
 	<meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
 	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
 	<meta name="color-scheme" content="light dark">
-
+	
 	<title>Exp Check</title>
 	
 	<link rel="stylesheet" href="css/index.css">
 	<link rel="stylesheet" href="css/toast.css">
+	<link rel="icon" href="img/exp_check_icon.svg" style="fill:white;">
+	
+	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+	<script type="module" src="js/index.js"></script>
 </head>
-<body>
+<body onload="init()">
 
 	<div id="toast">Error:</div>
 	
@@ -35,6 +39,7 @@
 			<div id="myDropdown" class="dropdown-content">
 				<a id="m_add_food">Add Food</a>
 				<a id="m_delete_food">Delete Food</a>
+				<a id="m_check_dates">Check Dates</a>
 				<a id="m_clear_data">Clear Data</a>
 			</div>
 		</div> 
@@ -64,5 +69,4 @@
 	</table>
 	
 </body>
-<script type="module" src="js/index.js"></script>
 </html>
