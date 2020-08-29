@@ -15,7 +15,7 @@ export function get_today()
 	return new Date().toLocaleDateString('en-US', options);
 }
 
-export function printc(...stuff)
+export function debug(...stuff)
 {
 	if (!SUPPRESS_OUTPUT) console.log("[APP]", ...stuff)
 };
@@ -49,9 +49,9 @@ export function delete_row(del_row_str)
 	var food_data = read_data("food_data");
 	var to_write = [];
 	for(var row of food_data.split(";")){
-		printc(row, del_row_str, ";")
+		debug(row, del_row_str, ";")
 		if (row == del_row_str) {
-			printc("Deleting row", row)
+			debug("Deleting row", row)
 			continue;
 		}
 		to_write.push(row);

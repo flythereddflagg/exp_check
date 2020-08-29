@@ -2,23 +2,25 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<meta http-equiv="Content-Security-Policy" content="script-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+	<meta 
+		http-equiv="Content-Security-Policy" 
+		content="default-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: content:;"
+	>
 	<meta name="format-detection" content="telephone=yes">
 	<meta name="msapplication-tap-highlight" content="no">
-	<meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
-	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+	<meta 
+		name="viewport" 
+		content="initial-scale=1, width=device-width, viewport-fit=cover"
+	>
 	<meta name="color-scheme" content="light dark">
 	
 	<title>Exp Check</title>
 	
 	<link rel="stylesheet" href="css/index.css">
 	<link rel="stylesheet" href="css/toast.css">
-	<link rel="icon" href="img/exp_check_icon.svg" style="fill:white;">
-	
-	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-	<script type="module" src="js/index.js"></script>
+	<link rel="icon" href="img/exp_check_icon.svg" style="{fill:white;}">
 </head>
-<body onload="init()">
+<body>
 
 	<div id="toast">Error:</div>
 	
@@ -27,7 +29,7 @@
 			<img class="icon icon--plus" src="img/plus_icon.svg"/>
 			Add
 		</button>
-		<button id="delete food button">
+		<button id="delete_food_button">
 			<img class="icon  icon--x" src="img/x_icon.svg"/>
 			Delete
 		</button>
@@ -44,11 +46,11 @@
 			</div>
 		</div> 
 	</div>
-		<label for="search bar">
-			<img class="icon" src="img/search_icon.png">
-		</label>
+	
+	<label for="search bar">
+		<img class="icon" src="img/search_icon.png">
+	</label>
 	<input type="text" id="search_bar"><br>
-
 
 	<label for="sorter">Sort by: </label>
 	<select id="sorter">
@@ -58,15 +60,13 @@
 	</select><br>
 
 	<table id="food_data_table">
-		<thead>
-			<tr>
-				<th>Food Name</th>
-				<th>Date Added</th>
-				<th>Expiration Date</th>
-			</tr>
-		</thead>
+		<thead><tr>
+			<th>Food Name</th><th>Date Added</th><th>Expiration Date</th>
+		</tr></thead>
 		<tbody id="food_data"> </tbody>
 	</table>
 	
+	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+	<script type="module" src="js/index.js"></script>
 </body>
 </html>

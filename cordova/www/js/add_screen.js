@@ -18,6 +18,10 @@ function confirm_add_food()
 		error_msg("You must specify a name and a date.");
 		return;
 	}
+	if (name.includes(",") || name.includes(";")){
+		error_msg("Names may not contain ',' or ';'.");
+		return;		
+	}
 	save_new_row(name, get_today(), date);
 	goto_home_screen();
 }
@@ -31,6 +35,7 @@ function add_screen_init()
 	}});
 	document.getElementById("confirm button").onclick = confirm_add_food;
 	document.getElementById("cancel add button").onclick = goto_home_screen;
+	document.getElementById("name").focus();
 	/* console.log(localStorage); */
 }
 

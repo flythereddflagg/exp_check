@@ -1,6 +1,12 @@
-import {printc, write_data, read_data, delete_row, error_msg} from "./tools_consts.js";
+import {
+	debug, 
+	write_data, 
+	read_data, 
+	delete_row, 
+	error_msg
+} from "./tools_consts.js";
 
-// always name, date_added, exp_date
+// always: name, date_added, exp_date
 var table = document.getElementById("food_data");
 
 function clear_data()
@@ -61,12 +67,12 @@ function load_data()
 		var cells = row.split(',');
 		add_row_to_table(...cells);
 	}
-	// printc(localStorage);
+	// debug(localStorage);
 }
 
 function search_for()
 {
-	printc("Searching...");
+	debug("Searching...");
 	load_data();
 }
 
@@ -140,8 +146,29 @@ function unshow_menu(event)
 
 function check_dates()
 {
-	printc("Checking dates...");
+	debug("Checking dates...");
+	
 	var message = "The following foods will expire soon:\n";
+	
+	var today = new Date();
+	var exp_list = [];
+	for (var datum of read_data("food_data").split(';')){
+		var food = datum.split(',')
+		var comp_date = new Date(food[2]);
+		var diff = Math.ceil((comp_date - today)/86400000);
+		if (diff <= 30){
+			exp_list.push([food[0], diff])
+		}
+	}
+	
+	if (!(exp_list.length)) return;
+	
+	exp_list.sort(function(a, b){return a[1] - b[1];});
+	for (var row of exp_list){
+		message += `${row[0].padStart(20, ' ')} expires in ${new String(row[1]).padStart(5, ' ')} days.`;
+		if (row[1] <= 0) message += " (Expired)";
+		message += "\n";
+	}
 	navigator.notification.alert(
 		message, 
 		function () {}, 
@@ -152,23 +179,45 @@ function check_dates()
 function onDeviceReady() 
 {
 	document.getElementById("m_check_dates").onclick = check_dates;
-	printc("Device Ready");
-}
+	var BackgroundFetch = window.BackgroundFetch;
 
+	// Your background-fetch handler.
+	var fetchCallback = function(taskId) {
+		console.log('[js] BackgroundFetch event received: ', taskId);
+		check_dates();
+		// Required: Signal completion of your task to native code
+		// If you fail to do this, the OS can terminate your app
+		// or assign battery-blame for consuming too much background-time
+		BackgroundFetch.finish(taskId);
+	};
+
+	var failureCallback = function(error) {
+		console.log('[bg] - BackgroundFetch failed', error);
+	};
+
+	BackgroundFetch.configure(fetchCallback, failureCallback, {
+		minimumFetchInterval: 86400, // <-- default is 15
+		periodic: true,
+		stopOnTerminate: false,
+		startOnBoot: true,
+		requiresBatteryNotLow: true
+	});
+	debug("Device Ready");
+}
 
 function init()
 {
 	// setup all the UI behavior
 	document.getElementById("clear_data_button").onclick = clear_data;
 	document.getElementById("add_food_button").onclick = goto_add_screen;
-	document.getElementById("delete food button").onclick = delete_food;
-	document.getElementById("sorter").onchange = sort_by;
-	document.getElementById("search_bar").oninput = search_for;
+	document.getElementById("delete_food_button").onclick = delete_food;
 	document.getElementById("menu").onclick = toggle_show_menu;
-	window.onclick = unshow_menu;
 	document.getElementById("m_add_food").onclick = goto_add_screen;
 	document.getElementById("m_delete_food").onclick = delete_food;
 	document.getElementById("m_clear_data").onclick = clear_data;
+	document.getElementById("sorter").onchange = sort_by;
+	document.getElementById("search_bar").oninput = search_for;
+	window.onclick = unshow_menu;
 	
 	// init and load data
 	init_data();
@@ -178,4 +227,4 @@ function init()
 	document.addEventListener("deviceready", onDeviceReady, false);
 }
 
-/* init(); */
+init();

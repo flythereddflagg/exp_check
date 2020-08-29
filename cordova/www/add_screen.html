@@ -2,6 +2,10 @@
 <html>
 <head>
 	<meta charset="utf-8">
+	<meta 
+		http-equiv="Content-Security-Policy" 
+		content="default-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: content:;"
+	>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Exp Check</title>
 	<link rel="stylesheet" href="css/index.css">
@@ -11,6 +15,7 @@
 </head>
 <body>
 	<div id="toast">Error:</div>
+	
 	<div class="buttons">
 		<button id="cancel add button">
 			<img class="icon" src="img/back_icon.svg"/> Back
@@ -19,13 +24,12 @@
 			<img class="icon icon--plus" src="img/plus_icon.svg"/> Add Food
 		</button>
 	</div>
+	
 	<label for="name">Food Name</label>
 	<input type="text" id="name"><br>
 	
 	<label for="date">Expiration Date</label><br>
 	<input type="text" id="date" style="{width : 99%;}">
-
-	
 </body>
 <script src="js/datepicker.js"></script>
 <script type="module" src="js/add_screen.js"></script>
