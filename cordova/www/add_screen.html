@@ -9,9 +9,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Exp Check</title>
 	<link rel="stylesheet" href="css/index.css">
-	<link rel="stylesheet" href="css/datepicker.css">
 	<link rel="stylesheet" href="css/add_screen.css">
 	<link rel="stylesheet" href="css/toast.css">
+	<link rel="icon" href="img/exp_check_icon.svg" style="{fill:white;}">
 </head>
 <body>
 	<div id="toast">Error:</div>
@@ -29,8 +29,12 @@
 	<input type="text" id="name"><br>
 	
 	<label for="date">Expiration Date</label><br>
-	<input type="text" id="date" style="{width : 99%;}">
+	<label for="year_select">yr.</label>
+	<select id="year_select"></select>
+	<label for="month_select">mo.</label>
+	<select id="month_select"></select>
+	<label for="day_select">day</label>
+	<select id="day_select"></select><br>
 </body>
-<script src="js/datepicker.js"></script>
 <script type="module" src="js/add_screen.js"></script>
 </html>
