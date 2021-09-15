@@ -8,8 +8,9 @@ Description:
     A file for holding all constants used by exp_check
 """
 
-food_data_path = "./data/food_data.json"
-icon_path = "./data/exp_check.ico"
+food_data_path = "/data/food_data.json"
+icon_path = "/data/exp_check.ico"
+search_icon_path = "/data/search_icon.png"
 
 gui_shape_pos  = "475x250+200+200"
 

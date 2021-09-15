@@ -15,12 +15,13 @@ from string import printable
 from exp_check.data_display_mod import DataDisplay
 #from data_manager import DataManager # uncomment for testing
 from exp_check.add_food_gui import AddFoodGUI
-from exp_check.constants import widget_options, format_string
+from exp_check.constants import widget_options, format_string, search_icon_path
 
 
 class ExpCheckGUI(Tk):
-    def __init__(self, data_manager):
+    def __init__(self, data_manager, program_root):
         super().__init__()
+        self.program_root = program_root
         self.data_manager = data_manager
         self.searching = False
         self.good_chars = printable[:-5] + '\x08'
@@ -62,7 +63,10 @@ class ExpCheckGUI(Tk):
         self.sort_menu = Menubutton(self, text='sort by', 
                                     menu=menu1, style="TMenubutton")        
         
-        search_icon = self.generate_icon_object("./data/search_icon.png", (20,20))
+        search_icon = self.generate_icon_object(
+            self.program_root+search_icon_path, 
+            (20,20)
+        )
         self.search_label = Label(image=search_icon, **widget_options)
         self.search_label.image = search_icon
         # setup message box dialog
@@ -206,7 +210,7 @@ class ExpCheckGUI(Tk):
 def main():
     data_manager = DataManager("./data.json")
     gui = ExpCheckGUI(data_manager)
-    gui.geometry("475x250+200+200") # adjust herer
+    gui.geometry("475x250+200+200") # adjust here
     gui.mainloop()
 
 

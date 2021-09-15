@@ -37,8 +37,8 @@ def calc_delta_date(future_time, current_time):
     return int(seconds/86400)
     
 
-def main():
-    data_manager = DataManager(food_data_path)
+def main(program_root):
+    data_manager = DataManager(program_root+food_data_path)
     database = data_manager.get_database()
     current_date = data_manager.get_current_datetime()[:-4]
     
@@ -83,4 +83,4 @@ def main():
     
     
 if __name__ == "__main__":
-    main()
+    main('.')

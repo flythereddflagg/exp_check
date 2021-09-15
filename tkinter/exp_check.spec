@@ -7,7 +7,8 @@ block_cipher = None
 
 data = [
     ("./data/exp_check.ico", "./data"),
-    ("./data/search_icon.png", "./data")
+    ("./data/search_icon.png", "./data"),
+    ("../LICENSE", ".")
 ]
 
 bins = []

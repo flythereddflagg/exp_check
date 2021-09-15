@@ -10,10 +10,17 @@ CC = pyinstaller
 CFLAGS = 
 
 SRC = exp_check.spec
+INSTALL_MAKER = makensis
+INSTALL_SCRIPT = install_script.nsi
+INSTALL_FLAGS = /V4
 
-all:
+all: compile installer
+
+compile:
 	$(CC) $(CFLAGS) $(SRC)
-
+    
+installer:
+	$(INSTALL_MAKER) $(INSTALL_FLAGS) $(INSTALL_SCRIPT)
 
 # clean and reset
 .PHONY: clean
@@ -25,4 +32,6 @@ clean-unix:
 clean-windows:
 	rmdir /Q/S .\build
 	rmdir /Q/S .\dist
+	del *.exe
 	rmdir /Q/S .\__pycache__
+

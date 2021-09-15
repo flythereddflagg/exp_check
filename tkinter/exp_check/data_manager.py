@@ -28,7 +28,7 @@ class DataManager():
         try:
             with open(self.data_path, 'r') as f:
                 self.raw_data = json.load(f)
-        except:
+        except FileNotFoundError:
             self.raw_data = empty_database
             self.save_data()
 
