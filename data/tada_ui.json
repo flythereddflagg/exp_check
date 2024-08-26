@@ -1,0 +1,44 @@
+{
+    "window title" : "Exp Check",
+    "window geometry" : "800x500+500+300",
+    "ui config":{
+        "bg": "black",
+        "borderwidth" : 5
+    },
+    "theme config" : {
+        "bg":"black", 
+        "fg":"white"
+    },
+    "grid config" : {
+        "row" : [
+        ],
+        "column" : [
+        ]
+    },
+    "widgets": {
+        "food list" : {
+            "type" : "listbox",
+            "init" : {
+            },
+            "grid" : {
+                "row" : 1,
+                "column": 0,
+                "sticky" : "nsew"
+            }
+        },
+        "add button": {
+            "type" : "button",
+            "init" : {
+                "image" : "./exp_check_icon.png"
+
+            },
+            "grid" : {
+                "row" : 0,
+                "column": 0,
+                "columnspan": 10,
+                "rowspan" :10,
+                "sticky" : "nsew"
+            }
+        }
+    }
+}

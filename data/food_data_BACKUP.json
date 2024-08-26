@@ -1,0 +1,95 @@
+{
+    "_warning": "DO NOT MODIFY THIS FILE",
+    "food data": {
+        "Advil (72 hr kit)": {
+            "date added": "240506",
+            "expiration date": "260201"
+        },
+        "Baked Beans (2x)": {
+            "date added": "240311",
+            "expiration date": "260301"
+        },
+        "Batteries (72 hr kit)": {
+            "date added": "210720",
+            "expiration date": "280301"
+        },
+        "Canned Black Bean Soup (2x)": {
+            "date added": "230403",
+            "expiration date": "250101"
+        },
+        "Canned Chicken Noodle Soup (2x)": {
+            "date added": "230905",
+            "expiration date": "250501"
+        },
+        "Canned Fiesta Corn (2x)": {
+            "date added": "231106",
+            "expiration date": "251201"
+        },
+        "Canned Mandarin Oranges (3x)": {
+            "date added": "231106",
+            "expiration date": "251001"
+        },
+        "Canned green beans (2x)": {
+            "date added": "221108",
+            "expiration date": "241001"
+        },
+        "Canned pineapple (1x)": {
+            "date added": "230306",
+            "expiration date": "241101"
+        },
+        "Canned tomato soup (2x)": {
+            "date added": "230717",
+            "expiration date": "250401"
+        },
+        "Craisins (2x)": {
+            "date added": "240205",
+            "expiration date": "241001"
+        },
+        "Drinking Water (9x)": {
+            "date added": "230503",
+            "expiration date": "241001"
+        },
+        "Fruit Snacks": {
+            "date added": "240715",
+            "expiration date": "250301"
+        },
+        "Hot Chocolate": {
+            "date added": "230207",
+            "expiration date": "241001"
+        },
+        "Junk": {
+            "date added": "240804",
+            "expiration date": "240809"
+        },
+        "Mini Bottled Apple Juice (12ct)": {
+            "date added": "240311",
+            "expiration date": "241001"
+        },
+        "Peanut Butter (1 small)": {
+            "date added": "231204",
+            "expiration date": "241001"
+        },
+        "Protein Granola Bars (4x)": {
+            "date added": "240408",
+            "expiration date": "241001"
+        },
+        "Pudding Snacks (4x)": {
+            "date added": "240715",
+            "expiration date": "240901"
+        },
+        "Travel toothpaste (72 hr kit) (3x)": {
+            "date added": "230508",
+            "expiration date": "250701"
+        },
+        "Tylenol (72 hr kit)": {
+            "date added": "220315",
+            "expiration date": "250201"
+        }
+    },
+    "key list": [
+        "date added",
+        "expiration date"
+    ],
+    "last read date/time": "2408101645",
+    "last write date/time": "2408042147"
+}
