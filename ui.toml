@@ -13,6 +13,6 @@ grid = {row = {}, column = {}}
 [widgets]
 [widgets.add_button]
 type = "button"
-init = {}
+init = {text = "ADD"}
 grid = {}
 
