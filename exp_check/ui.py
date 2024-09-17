@@ -1,6 +1,15 @@
 import tkinter as tk
-import json
+import tomllib
 
+TITLE = "title"
+GEOMETRY = "geometry"
+CONFIG = "config"
+THEME = "theme"
+GRID = "grid"
+WIDGET = "widgets"
+TYPE = "type"
+INIT = "init"
+READ_BINARY = 'rb'
 
 
 class UserInterface(tk.Tk):
@@ -27,42 +36,42 @@ class UserInterface(tk.Tk):
         self.ui_config = self.dict_from_jsonfile(layout_path)
         self.config_keys = self.ui_config.keys()
         self.theme = {} \
-            if 'theme config' not in self.config_keys \
-            else self.ui_config['theme config']
+            if THEME not in self.config_keys \
+            else self.ui_config[THEME]
         self.init_ui()
         self.init_widgets()
 
 
     def init_ui(self):
-        if 'window title' in self.config_keys:
-            self.title(self.ui_config['window title'])
+        if TITLE in self.config_keys:
+            self.title(self.ui_config[TITLE])
         
-        if 'window geometry' in self.config_keys:
-            self.geometry(self.ui_config['window geometry'])
+        if GEOMETRY in self.config_keys:
+            self.geometry(self.ui_config[GEOMETRY])
         
-        if 'ui config' in self.config_keys:
-            self.config(self.ui_config['ui config'])
+        if CONFIG in self.config_keys:
+            self.config(self.ui_config[CONFIG])
         
-        if 'grid config' in self.config_keys:
-            for kw in self.ui_config['grid config']['row']:
+        if GRID in self.config_keys:
+            for kw in self.ui_config[GRID][ROW]:
                 self.rowconfigure(**kw)
             
-            for kw in self.ui_config['grid config']['column']:
+            for kw in self.ui_config[GRID][COLUMN]:
                 self.columnconfigure(**kw)  
 
 
     def init_widgets(self):
         self.widgets = {}
-        for name, setup in self.ui_config['widgets'].items():
-            self.widgets[name] = self.get_widget(setup['type'].lower())
+        for name, setup in self.ui_config[WIDGET].items():
+            self.widgets[name] = self.get_widget(setup[TYPE].lower())
             self.widgets[name].config(self.theme)
-            self.widgets[name].config(setup['init'])
-            self.widgets[name].grid(setup['grid'])
+            self.widgets[name].config(setup[INIT])
+            self.widgets[name].grid(setup[GRID])
 
 
     def dict_from_jsonfile(self, path, **kwargs):
-        with open(path, 'r') as f:
-            data = json.load(f, **kwargs)
+        with open(path, READ_BINARY) as f:
+            data = tomllib.load(f, **kwargs)
         return data
 
 
@@ -73,4 +82,4 @@ class UserInterface(tk.Tk):
 if __name__ == '__main__':
     import pathlib
     print(pathlib.Path('.').resolve())
-    UserInterface("../data/tada_ui.json").mainloop()
+    UserInterface("./ui.toml").mainloop()
