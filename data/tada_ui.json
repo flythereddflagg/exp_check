@@ -1,6 +1,6 @@
 {
     "window title" : "Exp Check",
-    "window geometry" : "800x500+500+300",
+    "window geometry" : "1000x500+500+300",
     "ui config":{
         "bg": "black",
         "borderwidth" : 5
@@ -11,8 +11,10 @@
     },
     "grid config" : {
         "row" : [
+            0, 1, 8
         ],
         "column" : [
+            1, 1, 1
         ]
     },
     "widgets": {
@@ -20,24 +22,62 @@
             "type" : "listbox",
             "init" : {
             },
-            "grid" : {
-                "row" : 1,
+            "grid location" : {
+                "row" : 2,
                 "column": 0,
+                "columnspan": 4,
                 "sticky" : "nsew"
             }
         },
         "add button": {
             "type" : "button",
             "init" : {
-                "image" : "./exp_check_icon.png"
+                "text" : "add food"
 
             },
-            "grid" : {
+            "grid location" : {
                 "row" : 0,
+                "column": 0
+            }
+        },
+        "delete button": {
+            "type" : "button",
+            "init" : {
+                "text" : "delete food"
+
+            },
+            "grid location" : {
+                "row" : 0,
+                "column": 1
+            }
+        },
+        "search box": {
+            "type" : "entry",
+            "init" : {},
+            "grid location" : {
+                "row" : 0,
+                "column": 2
+            }
+        },
+        "sort options": {
+            "type" : "MenuButton",
+            "init" : {
+                "text" : "sort by"
+            },
+            "grid location" : {
+                "row" : 0,
+                "column": 3
+            }
+        },
+        "table heading": {
+            "type" : "label",
+            "init" : {
+                "text" : "heading"
+            },
+            "grid location" : {
+                "row" : 1,
                 "column": 0,
-                "columnspan": 10,
-                "rowspan" :10,
-                "sticky" : "nsew"
+                "columnspan" : 4
             }
         }
     }

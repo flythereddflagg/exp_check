@@ -1,0 +1,61 @@
+#### Global
+window geometry: 1000x500+500+300
+window title: Exp Check
+
+grid config:
+  column: [ 1, 1, 1]
+  row: [0, 1, 8]
+theme config:
+  bg: black
+  fg: white
+ui config:
+  bg: black
+  borderwidth: 5
+
+####
+
+widgets:
+  add button:
+    grid location:
+      column: 0
+      row: 0
+    init:
+      text: add food
+    type: button
+  delete button:
+    grid location:
+      column: 1
+      row: 0
+    init:
+      text: delete food
+    type: button
+  food list:
+    grid location:
+      column: 0
+      columnspan: 4
+      row: 2
+      sticky: nsew
+    init: {}
+    type: listbox
+  search box:
+    grid location:
+      column: 2
+      row: 0
+    init: {}
+    type: entry
+  sort options:
+    grid location:
+      column: 3
+      row: 0
+    init:
+      text: sort by
+    type: MenuButton
+  table heading:
+    grid location:
+      column: 0
+      columnspan: 4
+      row: 1
+    init:
+      text: heading
+    type: label
+

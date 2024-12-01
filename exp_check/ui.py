@@ -1,14 +1,17 @@
 import tkinter as tk
-import tomllib
+import yaml
 
-TITLE = "title"
-GEOMETRY = "geometry"
-CONFIG = "config"
-THEME = "theme"
-GRID = "grid"
+TITLE = "window title"
+GEOMETRY = "window geometry"
+CONFIG = "ui config"
+THEME = "theme config"
+GRID_CONFIG = "grid config"
+GRID_LOCATION = "grid location"
 WIDGET = "widgets"
 TYPE = "type"
 INIT = "init"
+ROW = "row"
+COLUMN = "column"
 READ_BINARY = 'rb'
 
 
@@ -24,6 +27,7 @@ class UserInterface(tk.Tk):
         "menu"        : tk.Menu,
         "menubutton"  : tk.Menubutton,
         "message"     : tk.Message,
+        "optionmenu"  : tk.OptionMenu,
         "radiobutton" : tk.Radiobutton,
         "scale"       : tk.Scale,
         "scrollbar"   : tk.Scrollbar,
@@ -33,7 +37,7 @@ class UserInterface(tk.Tk):
   
     def __init__(self, layout_path):
         super().__init__()
-        self.ui_config = self.dict_from_jsonfile(layout_path)
+        self.ui_config = self.dict_from_conf(layout_path)
         self.config_keys = self.ui_config.keys()
         self.theme = {} \
             if THEME not in self.config_keys \
@@ -52,12 +56,13 @@ class UserInterface(tk.Tk):
         if CONFIG in self.config_keys:
             self.config(self.ui_config[CONFIG])
         
-        if GRID in self.config_keys:
-            for kw in self.ui_config[GRID][ROW]:
-                self.rowconfigure(**kw)
+        if GRID_CONFIG in self.config_keys:
+            grid_weights = self.ui_config[GRID_CONFIG]
+            for index_, weight in enumerate(grid_weights[ROW]):
+                self.rowconfigure(index=index_, weight=weight) 
             
-            for kw in self.ui_config[GRID][COLUMN]:
-                self.columnconfigure(**kw)  
+            for index_, weight in enumerate(grid_weights[COLUMN]):
+                self.columnconfigure(index=index_, weight=weight) 
 
 
     def init_widgets(self):
@@ -66,12 +71,12 @@ class UserInterface(tk.Tk):
             self.widgets[name] = self.get_widget(setup[TYPE].lower())
             self.widgets[name].config(self.theme)
             self.widgets[name].config(setup[INIT])
-            self.widgets[name].grid(setup[GRID])
+            self.widgets[name].grid(setup[GRID_LOCATION])
 
 
-    def dict_from_jsonfile(self, path, **kwargs):
-        with open(path, READ_BINARY) as f:
-            data = tomllib.load(f, **kwargs)
+    def dict_from_conf(self, path, **kwargs):
+        with open(path) as f:
+            data = yaml.safe_load(f)
         return data
 
 
@@ -82,4 +87,5 @@ class UserInterface(tk.Tk):
 if __name__ == '__main__':
     import pathlib
     print(pathlib.Path('.').resolve())
-    UserInterface("./ui.toml").mainloop()
+    # UserInterface("./data/tada_ui.json").mainloop()
+    UserInterface("./out.yaml").mainloop()
