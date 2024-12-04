@@ -88,4 +88,4 @@ if __name__ == '__main__':
     import pathlib
     print(pathlib.Path('.').resolve())
     # UserInterface("./data/tada_ui.json").mainloop()
-    UserInterface("./out.yaml").mainloop()
+    UserInterface("./data/out.yaml").mainloop()
